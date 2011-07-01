@@ -1,0 +1,7 @@
+## LOCALE
+# set using kernel boot argumens
+
+## KEYBOARD
+# set using kernel boot argumens
+
+d-i partman/filter_mounted boolean false

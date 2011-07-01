@@ -1,0 +1,4 @@
+#!/bin/sh
+root="$(cd ${0%/*}/../;pwd)"
+#echo $root
+"$root/tools/wine" c:/python23/python.exe $@

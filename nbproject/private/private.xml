@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/hechao/projects/yinst/src/wubi/backends/common/backend.py</file>
+        <file>file:/home/hechao/projects/yinst/src/wubi/backends/win32/backend.py</file>
+        <file>file:/home/hechao/projects/yinst/src/wubi/backends/common/utils.py</file>
+        <file>file:/home/hechao/projects/yinst/src/wubi/backends/common/tasklist.py</file>
+        <file>file:/home/hechao/projects/yinst/src/wubi/frontends/win32/installation_page.py</file>
+        <file>file:/home/hechao/projects/yinst/src/wubi/backends/win32/drive.py</file>
+    </open-files>
+</project-private>
