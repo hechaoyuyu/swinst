@@ -541,8 +541,6 @@ class WindowsBackend(Backend):
             mb = None
             if self.info.bootloader == 'xp':
                 mb = associated_task.add_subtask(self.modify_bootini)
-            #elif self.info.bootloader == '98':
-            #    mb = associated_task.add_subtask(self.modify_configsys)
             elif self.info.bootloader == 'vista':
                 mb = associated_task.add_subtask(self.modify_bcd)
             if mb:
@@ -732,10 +730,6 @@ class WindowsBackend(Backend):
 
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
-            bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
-        # FIXME: Just test for bcdedit in the PATH.  What's the Windows
-        # equivalent of `type`?
-        if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
@@ -790,8 +784,6 @@ class WindowsBackend(Backend):
 
     def undo_bcd(self, associated_task):
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
-        if not isfile(bcdedit):
-            bcdedit = join_path(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
