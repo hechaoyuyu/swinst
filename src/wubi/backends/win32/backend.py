@@ -160,11 +160,15 @@ class WindowsBackend(Backend):
         src = join_path(self.info.data_dir, 'custom-installation')
         dest = self.info.custominstall
         log.debug('Copying %s -> %s' % (src, dest))
+        if os.path.exists(dest):
+            shutil.rmtree(dest)
         shutil.copytree(src, dest)
         src = join_path(self.info.root_dir, 'winboot')
         if isdir(src): # make runpy will fail otherwise as winboot will not be there
             dest = join_path(self.info.target_dir, 'winboot')
             log.debug('Copying %s -> %s' % (src, dest))
+            if os.path.exists(dest):
+                shutil.rmtree(dest)   
             shutil.copytree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg=_('The installation failed. Logs have been saved in: %s.' \
@@ -427,7 +431,7 @@ class WindowsBackend(Backend):
         '''
         #TBD
 
-    def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=False):
+    def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=True):
         '''
         platform specific
         '''

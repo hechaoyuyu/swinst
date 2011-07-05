@@ -59,6 +59,9 @@ def run_command(command, show_window=False):
     if retval == 0:
         return output
     else:
+        if os.path.basename(command[0]) == "bcdedit.exe":
+            log.exception("Error executing command ===>> command=%s" % (" ".join(command)))
+            return output
         raise Exception(
             "Error executing command\n>>command=%s\n"
             % (" ".join(command)))
