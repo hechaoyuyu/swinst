@@ -736,6 +736,8 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
+            bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return
         if registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
@@ -747,6 +749,7 @@ class WindowsBackend(Backend):
             command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']
         else:
             command = [bcdedit, '/create', '/d', '%s(cd mode)' % self.info.distro.name, '/application', 'bootsector']
+        log.debug("run command %s" %command)
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
         #mbr_path = self.info.flag and join_path(self.info.target_dir, 'winboot', 'yldr.mbr')[2:] or join_path(self.info.target_dir, 'winboot', 'yldrd.mbr')[2:]
@@ -790,6 +793,8 @@ class WindowsBackend(Backend):
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
+        if not isfile(bcdedit):
+            bcdedit = join_path(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return
@@ -802,6 +807,7 @@ class WindowsBackend(Backend):
             return
         log.debug("Removing bcd entry %s" % id)
         command = [bcdedit, '/delete', id , '/f']
+        log.debug("run command %s" %command)
         run_command(command)
         registry.set_value(
             'HKEY_LOCAL_MACHINE',
