@@ -110,7 +110,10 @@ class InstallationPage(Page):
             except:
                 self.target_drive_list.set_value(self.drives_gb[0])
         else:
-            self.target_drive_list.set_value(self.drives_gb[0])
+            try:
+                self.target_drive_list.set_value(self.drives_gb[0])
+            except:
+                self.target_drive_list.set_value(None)
         self.on_drive_change()
 
     def select_default_drive(self,tmpsize):
@@ -143,6 +146,9 @@ class InstallationPage(Page):
         self.size_list.on_change = self.on_size_change
 
         target_drive = self.get_drive()
+        if not target_drive:
+            log.debug("target drive is None")
+            return
         min_space_mb = self.info.distro.min_disk_space_mb
         ##print "min_space_mb ===",min_space_mb
         ##print "skip_size_check ===",self.info.skip_size_check
@@ -315,6 +321,8 @@ class InstallationPage(Page):
         self.error_label.set_text_color(255, 0, 0)
 
     def get_drive(self):
+        if not self.target_drive_list.get_text():
+            return None
         target_drive = self.target_drive_list.get_text()[:2].lower()
         drive = self.info.drives_dict.get(target_drive)
         log.info("drive == %s" %drive)
@@ -322,6 +330,8 @@ class InstallationPage(Page):
 
     def get_installation_size_mb(self):
         installation_size = self.size_list.get_text()
+        if not installation_size:
+            return None
         #using 1000 as opposed to 1024
         installation_size = int(installation_size[:-2])*1000
         return installation_size
@@ -379,6 +389,9 @@ class InstallationPage(Page):
     def on_install(self):
         drive = self.get_drive()
         installation_size_mb = self.get_installation_size_mb()
+        if not installation_size_mb:
+            log.debug("installation size is None")
+            return
         language = self.language_list.get_text()
         language = self.language2lang_country.get(language, None)
         locale = lang_country2linux_locale.get(language, self.info.locale)
