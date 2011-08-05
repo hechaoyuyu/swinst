@@ -390,6 +390,14 @@ msgstr "桌面環境："
 msgid "Language:"
 msgstr "語言："
 
+#: src/wubi/frontends/win32/installation_page.py:208
+msgid "Fast Install"
+msgstr "快速安裝"
+
+#: src/wubi/frontends/win32/installation_page.py:303
+msgid "Auto Login"
+msgstr "自動登錄"
+
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
 msgstr "使用者名稱："
@@ -614,3 +622,47 @@ msgstr ""
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
 msgstr "您確定要退出嗎？"
+
+##--------------------
+
+#: src/wubi/frontends/wind32/fix_page.py:46
+msgid "Fix"
+msgstr "修復"
+
+#: src/wubi/frontends/win32/fix_finish.py:41
+msgid "Fix completed"
+msgstr "修復結束"
+
+#: src/wubi/frontends/win32/fix_finish.py:43
+msgid "%s has fixed boot loader completed"
+msgstr "%s 修復結束"
+## --------------------------------
+
+#: src/wubi/frontends/win32/fix_page.py:36
+msgid "Uninstallation/fixed required"
+msgstr "需要解除安裝/修復"
+
+#: src/wubi/frontends/win32/fix_page.py:33
+msgid "%s Uninstaller/Fixer"
+msgstr "%s 解除/修復程式"
+
+#: src/wubi/frontends/win32/fix_page.py:67
+msgid "\r\n\r\nNote: Yinst found that your system is full hope for recovery and advises you try to <fix> first !"
+msgstr "\r\n\r\n提醒：Yinst 發現你的系統有望成功修復,建議你首先嘗試<修復> !"
+
+#: src/wubi/frontends/win32/confirm_page.py:47
+msgid "You Sure ?"
+msgstr "你確定要繼續卸載 ?"
+
+#: src/wubi/frontends/win32/confirm_page.py:47
+msgid "Yinst will remove below directroys, if them contain your\
+        usefull things ,please click <cancel> and backup them"
+msgstr "Yinst 卸載程序將刪除以下目錄,如果這些目錄包含對你有用的信息,可按下<取消>. 然後備份它們."
+
+#: src/wubi/backends/common/backend.py:159
+msgid "Recovering the installation directories"
+msgstr "正在還原安裝目錄"
+
+#: src/wubi/backends/common/backend.py:189
+msgid "Fixing %(distro)s-%(version)s"
+msgstr "正在修復 %(distro)s-%(version)s"

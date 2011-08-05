@@ -21,15 +21,17 @@
 import os
 from winui import ui
 from installation_finish_page import InstallationFinishPage
-from installation_page import InstallationPage
-from uninstallation_page import UninstallationPage
 from uninstallation_finish_page import UninstallationFinishPage
+from installation_page import InstallationPage
+from fix_page import FixPage
+from fix_finish_page import FixFinishPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
 from cd_menu_page import CDMenuPage
 from cd_finish_page import CDFinishPage
 from cdboot_page import CDBootPage
 from wubi.errors import QuitException
+from uninstall_confirm_page import UninstallConfirmPage
 import logging
 log = logging.getLogger("WindowsFrontend")
 
@@ -115,11 +117,19 @@ class WindowsFrontend(ui.Frontend):
         self.installation_page = InstallationPage(self.main_window)
         self.show_page(self.installation_page)
 
-    def show_uninstallation_settings(self):
-        self.uninstallation_page = UninstallationPage(self.main_window)
-        self.show_page(self.uninstallation_page)
+    def show_fix_settings(self):
+        self.fix_page = FixPage(self.main_window)
+        self.show_page(self.fix_page)
 
-    def show_uninstallation_finish_page(self):
+    def show_uninstall_confirm_page(self):
+        self.uninstall_confirm_page = UninstallConfirmPage(self.main_window)
+        self.show_page(self.uninstall_confirm_page)
+
+    def show_fix_finish_page(self):
+        self.fix_finish_page = FixFinishPage(self.main_window)
+        self.show_page(self.fix_finish_page)
+
+    def show_uninstallaion_finish_page(self):
         self.uninstallation_finish_page = UninstallationFinishPage(self.main_window)
         self.show_page(self.uninstallation_finish_page)
 

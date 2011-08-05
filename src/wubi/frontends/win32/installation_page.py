@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#condig=utf-8
 from winui import ui
 from page import Page
 from wubi.backends.common.mappings import reserved_usernames, lang_country2linux_locale
@@ -79,7 +78,7 @@ class InstallationPage(Page):
     def populate_drive_list(self,left,top):
         self.target_drive_list = ui.ComboBox(
                 self.main,
-                left + 32 + 10, top + 20, 150, 200,
+                left + 32 + 10, top + 20 - 5, 150, 200,
                 "")
         #分区发生变化
         self.target_drive_list.on_change = self.on_drive_change
@@ -140,7 +139,7 @@ class InstallationPage(Page):
         except:pass
         self.size_list = ui.ComboBox(
                 self.main,
-                left + 32 + 10, top + 20, 150, 200,
+                left + 32 + 10, top + 20 - 10, 150, 200,
                 "")
         #安装大小发生变化
         self.size_list.on_change = self.on_size_change
@@ -183,7 +182,7 @@ class InstallationPage(Page):
     def populate_distro_list(self,left,top):
         self.distro_list = ui.ComboBox(
                 self.main,
-                left + 32 + 10, top + 20, 150, 200,
+                left + 32 + 10, top + 20 - 15, 150, 200,
                 "")
         self.distro_list.on_change = self.on_distro_change
 
@@ -205,7 +204,7 @@ class InstallationPage(Page):
     def populate_language_list(self,left,top):
         self.language_list = ui.ComboBox(
                 self.main,
-                left + 32 + 10, top + 20, 150, 200,
+                left + 32 + 10, top + 20 - 5, 150, 200,
                 "")
         self.language_list.on_change = self.on_language_change
 
@@ -238,7 +237,7 @@ class InstallationPage(Page):
             "header.bmp")
 
         #navigation
-        self.insert_navigation(_("AdvancedInstall"), _("Quick Install"), _("Cancel"), default=2)
+        self.insert_navigation(_("AdvancedInstall"), _("Install"), _("Cancel"), default=2)
         self.navigation.button3.on_click = self.on_cancel
         self.navigation.button2.on_click = self.on_install
         self.navigation.button1.on_click = self.on_accessibility
@@ -251,28 +250,28 @@ class InstallationPage(Page):
         #目标驱动器选择
         ##print "目标驱动器选择"
         picture, label = self.add_controls_block(
-            self.main, self.h, self.h,
+            self.main, self.h, self.h - 5,
             "install.bmp", _("Installation drive:"))#, True)
         
         #分区大小选择
         ##print "分区大小选择"
         picture, label = self.add_controls_block(
-                self.main, self.h, self.h*4,
+                self.main, self.h, self.h*4 - 10,
                 "disksize.bmp", _("Installation size:"))#, True)
         
         #桌面环境选择
         ##print "桌面环境选择"
         picture, label = self.add_controls_block(
-            self.main, self.h, self.h*7,
+            self.main, self.h, self.h*7 - 15,
             "desktop.bmp", _("Desktop environment:"))#, True)
         self.populate_distro_list(self.h,self.h*7)
 
         #语言选择
         ##print "语言选择"
         picture, label = self.add_controls_block(
-            self.main, self.h*4 + self.w, self.h,
+            self.main, self.h*4 + self.w, self.h - 5,
             "language.bmp", _("Language:"))
-        self.populate_language_list(self.h*4 + self.w,self.h)
+        self.populate_language_list(self.h*4 + self.w,self.h )
 
         username = self.info.host_username.strip().lower()
         #正则表达式，re.sub把信念含有^-a-z0-9_的username对应替换成空
@@ -281,24 +280,37 @@ class InstallationPage(Page):
         #用户名
         ##print "用户名"
         picture, label = self.add_controls_block(
-            self.main, self.h*4 + self.w, self.h*4,
+            self.main, self.h*4 + self.w, self.h*4 - 12,
             "user.bmp", _("Username:"))
         self.username = ui.Edit(
             self.main,
-            self.h*4 + self.w + 42, self.h*4+20, 150, 20,
+            self.h*4 + self.w + 42, self.h*4+20 - 13, 150, 20,
             username, False)
 
         #密码
         ##print "密码"
         picture, label = self.add_controls_block(
-            self.main, self.h*4 + self.w, self.h*7,
+            self.main, self.h*4 + self.w, self.h*7 - 15,
             "lock.bmp", _("Password:"))
-        label.move(self.h*4 + self.w + 42, self.h*7 - 24)
+        label.move(self.h*4 + self.w + 42, self.h*7 - 24 - 12)
+
+        # 安装模式
+	self.chk_bt_instmod = ui.CheckButton(
+                self.main,
+                self.h * 3 - 6, self.w + 58, 16 + 60, 16,
+                _("Fast Install")
+		)
+        # 自动登录
+        self.chk_bt_autologin = ui.CheckButton(self.main,
+                                       self.h * 12, self.w + 58, 60 + 16, 16,# x,y,width,height
+                                       _("Auto Login")
+                                       )
 
         #提示信息
         self.about_label = ui.Label(
             self.main,
-            self.h*4 + self.w + 40, self.main.height - 30, self.main.width - 80, 16,
+            #self.h*4 + self.w + 40, self.main.height - 30, self.main.width - 80, 16,
+            self.h*4 + self.w + 44, self.main.height - 20, self.main.width - 80, 16,
             "")
         self.about_label.set_text_color(255, 0, 0)
         self.about_label.set_text(_("Note: Please remember your user name and password"))
@@ -308,15 +320,15 @@ class InstallationPage(Page):
             password = "test"
         self.password1 = ui.PasswordEdit(
             self.main,
-            self.h*4 + self.w + 42, self.h*7-4, 150, 20,
+            self.h*4 + self.w + 42, self.h*7-4 - 13, 150, 20,
             password, False)
         self.password2 = ui.PasswordEdit(
             self.main,
-            self.h*4 + self.w + 42, self.h*7+20, 150, 20,
+            self.h*4 + self.w + 42, self.h*7+20 - 13, 150, 20,
             password, False)
         self.error_label = ui.Label(
             self.main,
-            40, self.main.height - 20, self.main.width - 80, 16,
+            64, self.main.height - 20, self.main.width - 80, 16,
             "")
         self.error_label.set_text_color(255, 0, 0)
 
@@ -432,5 +444,14 @@ class InstallationPage(Page):
         self.info.locale = locale
         self.info.username = username
         self.info.password = password1
+	instmod = self.chk_bt_instmod.is_checked()
+	if instmod:
+	    self.info.instmod = "true"
+	else:
+	    self.info.instmod = "false"
+        if self.chk_bt_autologin.is_checked():
+            self.info.autologin = "true"
+        else:
+            self.info.autologin = "false"
         self.frontend.stop()
 

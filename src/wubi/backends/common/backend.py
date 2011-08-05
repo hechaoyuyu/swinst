@@ -17,9 +17,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#conding=utf-8
 import sys
 import os
+import os.path
 import tempfile
 import locale
 import struct
@@ -149,6 +149,38 @@ class Backend(object):
         #print "description ===",description.encode('utf-8')
         tasklist = ThreadedTaskList(description=description, tasks=tasks)
         return tasklist
+    
+    # fixboot task list
+    def get_fixboot_tasklist(self):
+        tasks = [
+            # 还原安装目录结构 已有的目录该函数不会覆盖
+            Task(self.create_dir_structure, description=_("Recovering the installation directories")),
+            #解压文件，compact这破玩意儿在这儿没什么用
+            Task(self.uncompress_target_dir, description=_("Uncompressing files")),
+            Task(self.create_uninstaller, description=_("Creating the uninstaller")),
+            # 复制安装文件 其复制前会先删除已有的文件,它只复
+            # 制winboot文件夹与install\custom-installation\ 还有图标
+            Task(self.copy_installation_files, description=_("Copying installation files")),
+            #展开内核 ,要设置好self.info.iso_path位置
+            Task(self.extract_kernel, description=_("Extracting the kernel")),
+            #要安装，先卸载 删除系统分区yldr,yldr.mbr
+            Task(self.undo_bootloader, _("Remove bootloader entry")),
+            #添加linux引导项（重要：把引导程序中的wubi改为ylmf），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
+            Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
+            #设置grub启动菜单(这里面有正常模式、安全模式、体验模式(livecd)等）
+            Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
+            #创建虚拟磁盘 ,该函数已被修改,对已存在的loop设备文件不重新创建.
+            Task(self.create_virtual_disks, description=_("Creating the virtual disks")),
+            #解压文件
+            Task(self.uncompress_files, description=_("Uncompressing files")),
+            #弹出CD
+            Task(self.eject_cd, description=_("Ejecting the CD")),
+            ]
+        description = _("Fixing %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version)
+        #print "description ===",description.encode('utf-8')
+        tasklist = ThreadedTaskList(description=description, tasks=tasks)
+        return tasklist
+
 
     def get_cdboot_tasklist(self):
         tasks = [
@@ -218,8 +250,17 @@ class Backend(object):
         #获取当前系统信息
         self.fetch_host_info()
         self.info.previous_uninstaller_path = self.get_uninstaller_path()
-        self.info.previous_target_dir = self.get_previous_target_dir()
+        self.chk_uninstaller()
+        #self.info.previous_target_dir = self.get_previous_target_dir()
+        self.info.previous_target_dir = None
+        if self.info.pre_install_path:
+            self.info.previous_target_dir = self.info.pre_install_path
+        if not self.info.previous_target_dir and self.info.pre_install_path2:
+            self.info.previous_target_dir = self.info.pre_install_path2
+            
         self.info.previous_distro_name = self.get_previous_distro_name()
+        if not self.info.previous_distro_name:
+            self.info.previous_distro_name = 'Ylmf OS'
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
         if not self.info.locale:
             self.info.locale = self.get_locale(self.info.language)
@@ -227,6 +268,26 @@ class Backend(object):
         self.info.iso_path, self.info.iso_distro = None,None #self.find_any_iso()
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
 
+    def chk_uninstaller(self):
+        '''
+        这里先判断先前的 卸载器 是否已经从注册表获得,如果没获得,则判断是否有安装文件夹,
+        再从安装文件夹里查找是否有卸载器
+        '''
+        if self.info.previous_uninstaller_path \
+            and os.path.isfile(self.info.previous_uninstaller_path):
+            return
+        if self.info.pre_install_path and \
+            os.path.isdir(self.info.pre_install_path):
+            tmppath = os.path.join(self.info.pre_install_path,'uninstaller.exe')
+        elif self.info.pre_install_path2 and \
+            os.path.isdir(self.info.pre_install_path2):
+            tmppath = os.path.join(self.info.pre_install_path2,'uninstaller.exe')
+        else:
+            tmppath = None
+        if tmppath and os.path.isfile(tmppath):
+            log.info("Search Uninstaller Found on: %s" % tmppath)
+            self.info.previous_uninstaller_path = tmppath
+        
     def get_distros(self):
         isolist_path = join_path(self.info.data_dir, 'isolist.ini')
         distros = self.parse_isolist(isolist_path)
@@ -289,6 +350,8 @@ class Backend(object):
             if not os.path.isdir(d):
                 log.debug("Creating dir %s" % d)
                 os.mkdir(d)
+            else:
+                log.info("%s exists, will not be created" % d)
 
     def fetch_installer_info(self):
         '''
@@ -625,7 +688,9 @@ class Backend(object):
             partitioning = partitioning,
             user_directory = user_directory,
             safe_host_username = safe_host_username,
-            host_os_name = host_os_name,)
+            host_os_name = host_os_name,
+	    instmod = self.info.instmod,
+            loginauto = self.info.autologin,)
         content = template
         for k,v in dic.items():
             k = "$(%s)" % k
@@ -705,7 +770,6 @@ class Backend(object):
             isos.sort(my_cmp)
             #在python2.4之后才支持以下语法
             #isos.sort(key=lambda x: os.path.getmtime(x))
-
             for iso in isos:
                 if self.info.distro.is_valid_iso(iso, self.info.check_arch):
                     return iso

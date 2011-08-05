@@ -67,4 +67,7 @@ d-i migration-assistant/partitions multiselect $(host_os_name) (/dev/MADEVICE)
 d-i migration-assistant/MADEVICE/users multiselect $(host_username)
 d-i migration-assistant/MADEVICE/$(safe_host_username)/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
 d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
-d-i installation/quickly-mode true
+d-i installation/quickly-mode $(instmod)
+
+## no password login
+autologin $(loginauto)

@@ -16,12 +16,6 @@ d-i netcfg/wireless_wep string
 ## SHELL COMMANDS.
 d-i preseed/early_command string [ -x /custom-installation/hooks/early-command.sh ] && /custom-installation/hooks/early-command.sh
 
-## UBIQUITY
-ubiquity	ubiquity/summary	note
-ubiquity	ubiquity/reboot boolean true
-ubiquity    ubiquity/success_command string [ -x /custom-installation/hooks/success-command.sh ] && /custom-installation/hooks/success-command.sh
-ubiquity    ubiquity/failure_command string [ -x /custom-installation/hooks/failure-command.sh ] && /custom-installation/hooks/failure-command.sh
-
 ## SKIP Security-Update-Error
 d-i apt-setup/security-updates-failed note
 
@@ -37,7 +31,6 @@ d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/filter_mounted boolean false
-d-i ubiquity/partman-skip-unmount boolean true
 
 
 ## CLOCK AND TIME ZONE
@@ -74,3 +67,7 @@ d-i migration-assistant/partitions multiselect $(host_os_name) (/dev/MADEVICE)
 d-i migration-assistant/MADEVICE/users multiselect $(host_username)
 d-i migration-assistant/MADEVICE/$(safe_host_username)/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
 d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
+d-i installation/quickly-mode $(instmod)
+
+## no password login
+autologin $(loginauto)

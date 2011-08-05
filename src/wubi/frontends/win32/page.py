@@ -138,7 +138,7 @@ class Page(ui.Page):
             self.line = ui.EtchedRectangle(
                 self.navigation,
                 0, sep_top, self.width, sep_height)
-
+	
         for i,text in enumerate((button1_text, button2_text, button3_text)):
             if not text:
                 continue

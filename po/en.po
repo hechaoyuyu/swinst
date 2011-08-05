@@ -300,6 +300,12 @@ msgstr ""
 msgid "Desktop environment:"
 msgstr ""
 
+#: src/wubi/frontends/win32/installation_page.py:208
+msgid "Fast Install"
+msgstr ""
+
+
+
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
 msgstr ""
@@ -564,4 +570,45 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
+msgstr ""
+## --------------------------------
+#: src/wubi/frontends/wind32/fix_page.py:46
+msgid "Fix"
+msgstr ""
+
+#: src/wubi/frontends/win32/fix_page.py:67
+msgid "\r\n\r\nNote: Yinst found that your system is full hope for recovery and advises you try to <fix> first !"
+msgstr ""
+
+#: src/wubi/frontends/win32/fix_page.py:36
+msgid "Uninstallation/fixed required"
+msgstr ""
+
+#: src/wubi/frontends/win32/fix_page.py:33
+msgid "%s Uninstaller/Fixer"
+msgstr ""
+
+#: src/wubi/frontends/win32/fix_finish.py:41
+msgid "Fix completed"
+msgstr ""
+
+#: src/wubi/frontends/win32/fix_finish.py:43
+msgid "%s Fixer fixing completed"
+msgstr ""
+
+#: src/wubi/frontends/win32/confirm_page.py:47
+msgid "You Sure ?"
+msgstr ""
+
+#: src/wubi/frontends/win32/confirm_page.py:47
+msgid "Yinst will remove below directroys, if them contain your\
+        usefull things ,please click <cancel> and backup them"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:159
+msgid "Recovering the installation directories"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:189
+msgid "Fixing %(distro)s-%(version)s"
 msgstr ""

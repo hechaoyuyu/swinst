@@ -26,7 +26,10 @@ from optparse import OptionParser
 from wubi.backends.win32 import WindowsBackend
 from wubi.frontends.win32 import WindowsFrontend
 import logging
-log = logging.getLogger("")
+from wubi.backends.common.utils import rm_tree
+import wubi.backends.common.backend
+from winui import ui
+log = logging.getLogger("ApplicationPage")
 
 
 class Wubi(object):
@@ -52,7 +55,12 @@ class Wubi(object):
             log.info("=== " + self.info.full_version + " ===")
             log.debug("Logfile is %s" % self.info.log_file)
             log.debug("sys.argv = %s" % sys.argv)
-            self.info.inst = sys.argv[1][-14:-1]
+            #self.info.inst = sys.argv[1][-14:-1]
+	    tmppath = os.path.basename(sys.argv[1])
+            if tmppath[-1] == "\"":
+                self.info.inst = tmppath[:-1]
+            else:
+                self.info.inst = tmppath	
             log.debug("inst = %s" % self.info.inst)
             self.backend = self.get_backend()
             self.backend.fetch_basic_info()
@@ -134,6 +142,30 @@ class Wubi(object):
             self.run_installer()
         self.quit()
 
+    def run_fixboot(self):
+        '''
+        在root.disk文件存在的情况下,补全其它相关文件,如vmlinuz,initrd.img以及修复引导,恢复注册信息等
+        '''
+        log.info("Found previous installation directory %s" % self.info.pre_install_path)
+        # Note: 不像正常安裝,有部分self.info內的鍵和值需要按实际情况补上,避免程序数据使用异常
+        log.info("Running the Fixer...")
+        self.frontend = self.get_frontend()
+        if not self.info.distro and self.info.arch == 'amd64':
+            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')) 
+        self.info.target_dir = self.info.pre_install_path
+        self.info.icon = os.path.join(self.info.target_dir, self.info.distro.name + '.ico')
+        self.info.target_drive = self.info.drives_dict.get(self.info.pre_install_path[:2].lower())
+        # self.info.cd_path = None # 修复与光盘无关
+        if self.info.installationiso:
+            self.info.iso_path = self.info.installationiso       
+        if not self.info.iso_path:
+            log.error("Not found any ISO image ")#执行到这里还找不到ISO,发一下彪
+            raise Exception(_("Could not retrieve the required installation files"))
+        self.info.home_size_mb = None
+        self.info.usr_size_mb  = None
+        self.frontend.run_tasks(self.backend.get_fixboot_tasklist())        
+        log.info("fixer running finish")
+
     def run_installer(self):
         '''
         Runs the installer
@@ -145,10 +177,11 @@ class Wubi(object):
         if (self.info.previous_target_dir[0] and os.path.isdir(self.info.previous_target_dir[0])) or \
         (self.info.previous_target_dir[1] and os.path.isdir(self.info.previous_target_dir[1])):
         '''
-        if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
-            log.info("Already installed, running the uninstaller...")
+        if (self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir))\
+                or (self.info.pre_install_path2 and self.info.pre_install_path2):
+            log.info("found previous install path, running the uninstaller/fixer...")
             self.info.uninstall_before_install = True
-            self.run_uninstaller()
+            self.run_uninstall()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
                 message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
@@ -171,23 +204,42 @@ class Wubi(object):
         if self.info.run_task == "reboot":
             self.reboot()
 
-    def run_uninstaller(self):
+    def run_uninstall(self):
         '''
         Runs the uninstaller interface
         '''
         log.info("Running the uninstaller...")
-        if not self.info.previous_target_dir or not os.path.isdir(self.info.previous_target_dir):
-            log.error("No previous target dir found, exiting")
-            return
-        if self.backend.run_previous_uninstaller():
-            return
+        if self.info.needfix and not self.info.previous_target_dir:
+            self.info.previous_target_dir = self.info.pre_install_path
+        if not os.path.isdir(self.info.previous_target_dir):         
+                log.error("No previous target dir found, exiting")
+                return
+        uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
+        if os.path.isfile(uninstallfile):
+            if self.backend.run_previous_uninstaller(): # 存在uninstall.exe,则程序在此叉开,转去执行该程序
+                return
         self.frontend = self.get_frontend()
-        self.frontend.show_uninstallation_settings()
+        self.frontend.show_fix_settings()
         log.info("Received settings")
-        self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+        if self.info.needfix:
+            log.info("try to fix the boot loader")
+            self.run_fixboot()
+        else:
+            log.info("Uninstall the previous installation")
+            self.frontend.show_uninstall_confirm_page()
+            self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+            if self.info.pre_install_path2 and os.path.isdir(self.info.pre_install_path2):
+                rm_tree(self.info.pre_install_path2)
+            if self.info.pre_install_path and os.path.isdir(self.info.pre_install_path):
+                rm_tree(self.info.pre_install_path)
         log.info("Almost finished uninstalling")
-        if not self.info.uninstall_before_install:
-            self.frontend.show_uninstallation_finish_page()
+        if self.info.fixed:#如果修复过的
+            self.frontend.show_fix_finish_page()
+            if self.info.run_task == "reboot":
+                self.reboot()
+            self.on_quit()
+        elif not self.info.uninstall_before_install:
+            self.frontend.show_uninstallaion_finish_page()
         log.info("Finished uninstallation")
         if self.info.inst == "uninstall.exe":
             self.quit()
