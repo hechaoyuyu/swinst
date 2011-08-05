@@ -35,7 +35,7 @@ translations: po/*.po
 
 version.py:
 	$(shell echo 'version = "4.0"' > build/version.py)
-	$(shell echo 'revision = 5' >> build/version.py)
+	$(shell echo 'revision = 6' >> build/version.py)
 	$(shell echo 'application_name = "$(PACKAGE)"' >> build/version.py)
 
 pylauncher: 7z src/pylauncher/*
@@ -91,6 +91,7 @@ runpy:
 clean:
 	rm -rf dist/*
 	rm -rf build/*
+	find ./ -iname *py[co] -exec rm -vf {} \;
 
 .PHONY: all build test yinst wubi-pre-build runpy runbin ckeck_wine unittest
 	7z translations version.py pylauncher grubutil

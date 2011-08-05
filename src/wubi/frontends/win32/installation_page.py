@@ -171,7 +171,13 @@ class InstallationPage(Page):
                     self.size_list.set_value("%sGB" % i)
                     return
         #取list的平均值，获取一个平均的空间大小
-        i = int(len(self.size_list_gb)/2)
+        #i = int(len(self.size_list_gb)/2)
+        i = len(self.size_list_gb)
+        if i > 1:
+            i = int(i / 2)
+        elif i == 0:
+            log.debug("i == 0,list == 0")
+            return
         log.debug("i == %s,list == %s" %(i,len(self.size_list_gb)))
         installation_size_gb = self.size_list_gb[i]
         installation_size_gb = installation_size_gb < 10 and installation_size_gb or 10
@@ -297,14 +303,23 @@ class InstallationPage(Page):
         # 安装模式
 	self.chk_bt_instmod = ui.CheckButton(
                 self.main,
-                self.h * 3 - 6, self.w + 58, 16 + 60, 16,
-                _("Fast Install")
-		)
+                self.h * 3 - 6, self.w + 56, 12, 12,
+                None)
+        self.chk_bt_instmod_label = ui.Label(
+            self.main,
+            self.h * 3 + 11, self.w + 56, 60, 12,
+             _("Fast Install"))
+        
+        self.chk_bt_instmod.set_check(True)
+        
         # 自动登录
         self.chk_bt_autologin = ui.CheckButton(self.main,
-                                       self.h * 12, self.w + 58, 60 + 16, 16,# x,y,width,height
-                                       _("Auto Login")
+                                       self.h * 12, self.w + 56, 12, 12,# x,y,width,height
                                        )
+        self.chk_bt_autologin_label = ui.Label(
+            self.main,
+            self.h * 12 + 17, self.w + 56, 60, 12,
+              _("Auto Login"))
 
         #提示信息
         self.about_label = ui.Label(

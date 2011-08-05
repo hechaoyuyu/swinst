@@ -117,9 +117,15 @@ class AccessibilityPage(Page):
                 self.drives_gb.append(text)
                 self.target_drive_list.add_item(text)
         if tmptext:
-            self.target_drive_list.set_value(tmptext)
+            try:
+                self.target_drive_list.set_value(tmptext)
+            except:
+                self.target_drive_list.set_value(self.drives_gb[0])
         else:
-            self.target_drive_list.set_value(self.drives_gb[0])
+            try:
+                self.target_drive_list.set_value(self.drives_gb[0])
+            except:
+                self.target_drive_list.set_value(None)
         self.on_drive_change()
 
     def select_default_drive(self):
@@ -213,6 +219,9 @@ class AccessibilityPage(Page):
         #print "target_drive ===",self.info.target_drive
 
     def get_drive(self):
+        if not self.target_drive_list.get_text():
+            log.error("** get drive drive **")
+            return None        
         target_drive = self.target_drive_list.get_text()[:2].lower()
         drive = self.info.drives_dict.get(target_drive)
         return drive
