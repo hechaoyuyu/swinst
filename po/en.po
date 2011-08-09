@@ -577,7 +577,7 @@ msgid "Fix"
 msgstr ""
 
 #: src/wubi/frontends/win32/fix_page.py:67
-msgid "\r\n\r\nNote: Yinst found that your system is full hope for recovery and advises you try to <fix> first !"
+msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
 msgstr ""
 
 #: src/wubi/frontends/win32/fix_page.py:36

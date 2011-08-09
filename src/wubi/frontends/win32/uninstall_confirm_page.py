@@ -49,10 +49,10 @@ class UninstallConfirmPage(Page):
 
         msg = msg + "\r\n\r\n" + self.info.previous_target_dir
         if self.info.pre_install_path and os.path.isdir(self.info.pre_install_path)\
-            and self.info.previous_target_dir != self.info.pre_install_path:
+            and self.info.previous_target_dir.lower() != self.info.pre_install_path.lower():
                 msg = msg + "\r\n" + self.info.pre_install_path # 这里确定要不要增加X:\ylmfos-loop
         if self.info.pre_install_path2 and os.path.isdir(self.info.pre_install_path2)\
-            and self.info.previous_target_dir != self.info.pre_install_path2:
+            and self.info.previous_target_dir.lower() != self.info.pre_install_path2.lower():
                 msg = msg + "\r\n" + self.info.pre_install_path2 # 这里确定要不要增加X:\ylmfos-livecd
         
         #Main control container

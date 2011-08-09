@@ -33,6 +33,7 @@ import btdownloader
 import downloader
 import subprocess
 
+from wubi.backends.win32 import registry
 from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
@@ -225,6 +226,7 @@ class Backend(object):
         Basic information required by the application dispatcher select_task()
         '''
         log.debug("Fetching basic info...")
+        self.info.needfix = 3   # 检查安装目录,注册表,系统盘引导,每检查一项成功则减1,为0时不再修复
         self.info.uninstall_before_install = False
         self.info.original_exe = self.get_original_exe()
         #获取平台信息:win32 or linux2
@@ -250,23 +252,127 @@ class Backend(object):
         #获取当前系统信息
         self.fetch_host_info()
         self.info.previous_uninstaller_path = self.get_uninstaller_path()
-        self.chk_uninstaller()
-        #self.info.previous_target_dir = self.get_previous_target_dir()
-        self.info.previous_target_dir = None
-        if self.info.pre_install_path:
-            self.info.previous_target_dir = self.info.pre_install_path
-        if not self.info.previous_target_dir and self.info.pre_install_path2:
-            self.info.previous_target_dir = self.info.pre_install_path2
-            
+        self.info.previous_target_dir = self.get_previous_target_dir()
         self.info.previous_distro_name = self.get_previous_distro_name()
-        if not self.info.previous_distro_name:
-            self.info.previous_distro_name = 'Ylmf OS'
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
         if not self.info.locale:
             self.info.locale = self.get_locale(self.info.language)
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.iso_path, self.info.iso_distro = None,None #self.find_any_iso()
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
+
+        self.chk_needfix()
+        self.chk_uninstaller()
+        #----------------------------------------------------------------------
+    def chk_needfix(self):
+        self.check_pre_install_files()
+        if self.info.needfix == 0:
+            return # 这项检查通不过的话,就无必要修复
+        
+        if not self.info.previous_target_dir:
+            self.info.previous_target_dir = self.info.pre_install_path
+        else:
+            self.info.needfix -= 1 # 注册表项检查成功
+        if not self.info.previous_distro_name:
+            self.info.previous_distro_name = 'Ylmf OS'                
+        self.check_boot_entry() #检查登录项
+       
+    def check_boot_entry(self):
+        if self.info.bootloader == 'xp':
+            self.chk_bootini()
+        elif self.info.bootloader == 'vista':
+            self.chk_bootbcd()
+        else:
+            pass
+
+    def chk_bootbcd(self):
+        sysdrive = os.environ['SystemDrive']
+        if os.path.isfile(os.path.join(sysdrive, '\\yldr.mbr'))\
+            and \
+           os.path.isfile(os.path.join(sysdrive, '\\yldr'))\
+            and \
+           registry.get_value('HKEY_LOCAL_MACHINE',
+            self.info.registry_key, 'VistaBootDrive'):
+               self.info.needfix -= 1
+
+    def chk_bootini(self):
+        sysdrive = os.environ['SystemDrive']
+        if os.path.isfile(os.path.join(sysdrive, '\\yldr.mbr'))\
+            and \
+           os.path.isfile(os.path.join(sysdrive, '\\yldr'))\
+            and \
+            self.chk_bootini_entry(sysdrive):
+               self.info.needfix -= 1
+
+    def chk_bootini_entry(self, sysdrive):
+        try:
+            bootfile = open(os.path.join(sysdrive, "\\boot.ini"))
+        except:
+            log.error("Open <boot.ini> error when checking boot entry")
+            return False
+        bootcontent = bootfile.read()
+        bootfile.close()
+        if bootcontent.lower().find("c:\\yldr.mbr = \"ylmf os\"") != -1:
+            return True
+        return False
+
+
+    def check_pre_install_files(self):
+        '''
+        check some files in directory ylmfos-loop, judge them if unbroken or not
+        '''
+        self.info.installationiso = None
+        self.info.swap_size_mb = 256
+        self.info.root_size_mb = 0
+
+        if not self.check_pre_install_path() \
+            or not self.info.pre_install_path:
+            self.info.needfix = 0
+            return
+        
+        rootdisk = os.path.join(self.info.pre_install_path, 'disks', 'root.disk')
+        if not os.path.isfile(rootdisk):
+            self.info.needfix = 0
+            return   
+        root_size_mb = int(os.path.getsize(rootdisk) / 1000 /1000) + 50
+        if root_size_mb < 1500:
+            self.info.needfix = 0  # 500M以下文件不理会
+            return
+        else:
+            self.info.needfix -= 1 
+
+        self.info.root_size_mb = root_size_mb
+        installationiso = os.path.join(self.info.pre_install_path, 'install', 'installation.iso')
+        if os.path.isfile(installationiso):
+            self.info.installationiso = installationiso
+            log.info("Found iso = %s" % self.info.installationiso )
+        else:
+            self.info.installationiso, distro = self.find_any_iso()
+            if self.info.installationiso:
+                log.info("Searching iso Found in %s" % str(self.info.installationiso))
+
+    def check_pre_install_path(self):
+        '''
+        check a Win32 machine if exists a directory named "ylmfos-loop",
+        if exists, then refix the boot, else ignore
+        '''
+        self.info.pre_install_path  = None
+        self.info.pre_install_path2 = None
+        if not self.info.drives:
+            log.info("no effective drive found")
+            return False# 如果没检测到有效的驱动器盘符
+        for d in self.info.drives:
+            yinst_path = os.path.join(d.path[:2].lower(), "\\ylmfos-loop") #join不在盘符后添加\
+            yinst_path2 = os.path.join(d.path[:2].lower(), "\\ylmfos-livecd")
+            if yinst_path2 and os.path.isdir(yinst_path2):
+                self.info.pre_install_path2 = yinst_path2
+                log.info("Previous yinst path 2 : %s " % str(self.info.pre_install_path2))
+            if yinst_path and os.path.isdir(yinst_path):
+                self.info.pre_install_path = yinst_path
+                log.info("Previous yinst path 1 : %s " % str(self.info.pre_install_path))
+                return True
+        return False
+    # ----------------------------------------
 
     def chk_uninstaller(self):
         '''

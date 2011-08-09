@@ -91,7 +91,7 @@ runpy:
 clean:
 	rm -rf dist/*
 	rm -rf build/*
-	find ./ -iname *py[co] -exec rm -vf {} \;
+	find ./ -iname *py[co] -exec rm -f {} \;
 
 .PHONY: all build test yinst wubi-pre-build runpy runbin ckeck_wine unittest
 	7z translations version.py pylauncher grubutil

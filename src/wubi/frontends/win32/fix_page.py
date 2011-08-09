@@ -29,7 +29,7 @@ class FixPage(Page):
     def on_init(self):
         Page.on_init(self)
 
-        if self.info.needfix:
+        if self.info.needfix != 0:
             wintitle = _("%s Uninstaller/Fixer") % self.info.previous_distro_name
             if self.info.uninstall_before_install:
                 msg = _("Uninstallation/fixed required")
@@ -50,7 +50,7 @@ class FixPage(Page):
             "Ylmf OS-header.bmp")#% self.info.previous_distro_name[0:7])
             
         #navigation
-        if self.info.needfix:# and self.info.registry:
+        if self.info.needfix != 0:# and self.info.registry:
             self.insert_navigation(_("Fix"), _("Uninstall"), _("Cancel"), default=3)
             self.navigation.button3.on_click = self.on_cancel
             self.navigation.button2.on_click = self.on_uninstall
@@ -76,7 +76,7 @@ class FixPage(Page):
             40, 40, self.main.width - 80, 30 + FIXLABEL_HEIGHT,# x,y, width, height
             "")
         if self.info.needfix:
-            msg = msg + _("\r\n\r\nNote: Yinst found that your system is full hope for recovery and advises you try to <fix> first !")
+            msg = msg + _("\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !")
         self.uninstall_label.set_text(msg)
 
         self.backup_iso = ui.CheckButton(

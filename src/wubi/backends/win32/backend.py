@@ -75,55 +75,6 @@ class WindowsBackend(Backend):
         self.info.drives_dict = dict(drives)
         log.info("self.info.drives_dict = %s " % self.info.drives_dict)
 
-        self.info.pre_install_path = self.check_pre_install_path()
-        log.info("Previous yinst path : %s " % str(self.info.pre_install_path))
-        if self.info.pre_install_path:
-            self.info.needfix = self.check_pre_install_files()
-        else:
-            self.info.needfix = False
-
-    def check_pre_install_files(self):
-        '''
-        check some files in directory ylmfos-loop, judge them if unbroken or not
-        '''
-        self.info.installationiso = None
-        self.info.swap_size_mb = 256
-        self.info.root_size_mb = 0
-
-        rootdisk = os.path.join(self.info.pre_install_path, 'disks', 'root.disk')
-        if not os.path.isfile(rootdisk):
-            return False  # self.info.needfix = False
-        root_size_mb = int(os.path.getsize(rootdisk) / 1000 /1000) + 50
-        if root_size_mb < 500:
-            #shutil.move(rootdisk, rootdisk + '.bak')
-            return False # 500M以下文件不理会
-        self.info.root_size_mb = root_size_mb
-        installationiso = os.path.join(self.info.pre_install_path, 'install', 'installation.iso')
-        if os.path.isfile(installationiso):
-            self.info.installationiso = installationiso
-            log.info("Found iso = %s" % installationiso )
-        else:            
-            self.info.installationiso, distro = self.find_any_iso()
-            if self.info.installationiso:
-                log.info("Found iso %s" % str(self.info.installationiso))
-        return True   # 执行到这里,表明上边检查root.disk过关.仍然给个True
-        
-    def check_pre_install_path(self):
-        '''
-        check a Win32 machine if exists a directory named "ylmfos-loop",
-        if exists, then refix the boot, else ignore do nothing '''
-        if not self.info.drives:
-            log.info("no effective drive found")
-            return None # 如果没检测到有效的驱动器盘符，返回None
-        self.info.pre_install_path2 = None
-        for d in self.info.drives:
-            yinst_path = os.path.join(d.path[:2].lower(), "\\ylmfos-loop") #join不在盘符后添加\
-            yinst_path2 = os.path.join(d.path[:2].lower(), "\\ylmfos-livecd")
-            if yinst_path2 and os.path.isdir(yinst_path2):
-                self.info.pre_install_path2 = yinst_path2
-            if yinst_path and os.path.isdir(yinst_path):
-                return yinst_path
-        return None
 
     def select_target_dir(self):
         target_dir = join_path(self.info.target_drive.path, self.info.distro.installation_dir)

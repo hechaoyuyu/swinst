@@ -303,29 +303,30 @@ class InstallationPage(Page):
         # 安装模式
 	self.chk_bt_instmod = ui.CheckButton(
                 self.main,
-                self.h * 3 - 6, self.w + 56, 12, 12,
+                self.h * 3 - 6, self.w + 58, 12, 12,
                 None)
         self.chk_bt_instmod_label = ui.Label(
             self.main,
-            self.h * 3 + 11, self.w + 56, 60, 12,
+            self.h * 3 + 11, self.w + 58, 60, 12,
              _("Fast Install"))
         
         self.chk_bt_instmod.set_check(True)
         
         # 自动登录
         self.chk_bt_autologin = ui.CheckButton(self.main,
-                                       self.h * 12, self.w + 56, 12, 12,# x,y,width,height
-                                       )
+                                       self.h * 12, self.w + 58, 12, 12,# x,y,width,height
+                                       None)
         self.chk_bt_autologin_label = ui.Label(
             self.main,
-            self.h * 12 + 17, self.w + 56, 60, 12,
+            self.h * 12 + 17, self.w + 58, 60, 12,
               _("Auto Login"))
+        self.chk_bt_autologin.set_check(True)
+
 
         #提示信息
         self.about_label = ui.Label(
             self.main,
-            #self.h*4 + self.w + 40, self.main.height - 30, self.main.width - 80, 16,
-            self.h*4 + self.w + 44, self.main.height - 20, self.main.width - 80, 16,
+            self.h*4 + self.w + 44, self.main.height - 17, self.main.width - 80, 16,
             "")
         self.about_label.set_text_color(255, 0, 0)
         self.about_label.set_text(_("Note: Please remember your user name and password"))
@@ -343,7 +344,7 @@ class InstallationPage(Page):
             password, False)
         self.error_label = ui.Label(
             self.main,
-            64, self.main.height - 20, self.main.width - 80, 16,
+            64, self.main.height - 17, self.main.width - 80, 16,
             "")
         self.error_label.set_text_color(255, 0, 0)
 

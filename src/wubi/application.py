@@ -29,7 +29,7 @@ import logging
 from wubi.backends.common.utils import rm_tree
 import wubi.backends.common.backend
 from winui import ui
-log = logging.getLogger("ApplicationPage")
+log = logging.getLogger("")
 
 
 class Wubi(object):
@@ -54,7 +54,6 @@ class Wubi(object):
             self.set_logger()
             log.info("=== " + self.info.full_version + " ===")
             log.debug("Logfile is %s" % self.info.log_file)
-            log.debug("sys.argv = %s" % sys.argv)
             #self.info.inst = sys.argv[1][-14:-1]
 	    tmppath = os.path.basename(sys.argv[1])
             if tmppath[-1] == "\"":
@@ -150,8 +149,12 @@ class Wubi(object):
         # Note: 不像正常安裝,有部分self.info內的鍵和值需要按实际情况补上,避免程序数据使用异常
         log.info("Running the Fixer...")
         self.frontend = self.get_frontend()
-        if not self.info.distro and self.info.arch == 'amd64':
-            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')) 
+        log.info("fixboot -- self.info.arch = %s " % self.info.arch)
+        log.info("fixboot -- self.info.distro = %s" % self.info.distro)
+        if not self.info.distro:
+            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386'))
+            log.info("self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')) = %s " % self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')))
+        log.info("self.info.distros_dict.get(('Ylmf OS'.lower(), 'amd64')) = %s " % self.info.distros_dict.get(('Ylmf OS'.lower(), 'amd64')))
         self.info.target_dir = self.info.pre_install_path
         self.info.icon = os.path.join(self.info.target_dir, self.info.distro.name + '.ico')
         self.info.target_drive = self.info.drives_dict.get(self.info.pre_install_path[:2].lower())
@@ -176,14 +179,18 @@ class Wubi(object):
         '''
         if (self.info.previous_target_dir[0] and os.path.isdir(self.info.previous_target_dir[0])) or \
         (self.info.previous_target_dir[1] and os.path.isdir(self.info.previous_target_dir[1])):
-        '''
+        
         if (self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir))\
+                or (self.info.pre_install_path2 and self.info.pre_install_path2):'''
+        if (self.info.pre_install_path and os.path.isdir(self.info.pre_install_path))\
                 or (self.info.pre_install_path2 and self.info.pre_install_path2):
             log.info("found previous install path, running the uninstaller/fixer...")
             self.info.uninstall_before_install = True
             self.run_uninstall()
             self.backend.fetch_basic_info()
-            if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
+            #if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
+        if (self.info.pre_install_path and os.path.isdir(self.info.pre_install_path))\
+                or (self.info.pre_install_path2 and self.info.pre_install_path2):
                 message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
                 message = message % self.info.previous_target_dir
                 log.error(message)
@@ -208,8 +215,8 @@ class Wubi(object):
         '''
         Runs the uninstaller interface
         '''
-        log.info("Running the uninstaller...")
-        if self.info.needfix and not self.info.previous_target_dir:
+        log.info("Running the uninstaller/Fixer...")
+        if not self.info.previous_target_dir and self.info.pre_install_path:
             self.info.previous_target_dir = self.info.pre_install_path
         if not os.path.isdir(self.info.previous_target_dir):         
                 log.error("No previous target dir found, exiting")

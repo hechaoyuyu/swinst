@@ -668,8 +668,8 @@ msgid "%s Uninstaller/Fixer"
 msgstr "%s 卸载/修复程序"
 
 #: src/wubi/frontends/win32/fix_page.py:67
-msgid "\r\n\r\nNote: Yinst found that your system is full hope for recovery and advises you try to <fix> first !"
-msgstr "\r\n\r\n提醒：Yinst 发现您的系统有望成功修复，建议你首先尝试<修复> !"
+msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
+msgstr "\r\n\r\n提醒：Yinst 发现您上次的安装已损坏,但是Ylmf OS安装设备文件root.disk仍然存在，建议你首先尝试<修复> !"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "You Sure ?"
