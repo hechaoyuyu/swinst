@@ -204,7 +204,7 @@ msgid "Checking %s"
 msgstr "正在检查 %s"
 
 msgid "Could not retrieve the required installation files"
-msgstr "无法检索所需的安装文件,请确认 Ylmf OS 镜像是否与安装工具在同一目录下"
+msgstr "无法检索所需的安装文件，请确认 iso 文件和安装工具 yinst 在同一目录下。"
 
 msgid "File %s is corrupted"
 msgstr "%s 文件被损坏"
@@ -230,7 +230,7 @@ msgid ""
 "Please uninstall that before continuing."
 msgstr ""
 "%s 检测到上次的安装。\n"
-"请先卸载，然后再继续。在卸载之前，请备份好 Ylmf OS 中的用户数据。"
+"请先卸载，然后再继续。在卸载之前，请备份 Ylmf OS 中的用户数据。"
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
@@ -337,7 +337,7 @@ msgid ""
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
 "只有 %sMB 可用磁盘空间。\n"
-"最小安装需要 1024MB 空间。退出"
+"安装最少需要 1024MB 空间。退出"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -359,11 +359,11 @@ msgstr "(%sGB 空闲)"
 
 #: src/wubi/frontends/win32/accessibility_page.py:140
 msgid "In Livecd,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"
-msgstr "在 Livecd 中，您可以试用和决定是否安装 Ylmf OS，请选择一个分区，剩余空间必须大于1G"
+msgstr "在 Livecd 中，您可以试用和决定是否安装 Ylmf OS，请选择一个分区，剩余空间必须大于1G。"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select a partition,and the rest of the space must be greater than 5G."
-msgstr "此安装模式不会影响硬盘分区及数据，请选择一个NTFS分区，剩余空间必须大于5G。"
+msgstr "此安装模式不会影响硬盘分区及数据，请选择一个 NTFS 分区，剩余空间必须大于 5G。"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -447,7 +447,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
-msgstr "请输入有效的用户名称"
+msgstr "请输入有效的用户名"
 
 #: src/wubi/frontends/win32/installation_page.py:296
 msgid "Note: Please remember your user name and password"
@@ -459,7 +459,7 @@ msgstr "请完全使用小写字母设置用户名称。"
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
-msgstr "请勿在用户名称中使用空格。"
+msgstr "请勿在用户名中使用空格。"
 
 #: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a lower-case letter."
@@ -509,7 +509,7 @@ msgstr "卸载"
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
-msgstr "检测到上次的安装，需要先卸载才能继续。在卸载之前，请备份好 Ylmf OS 中的用户数据。"
+msgstr "检测到上次的安装，需要先卸载才能继续。在卸载之前，请先备份 Ylmf OS 中的用户数据。"
 
 msgid "Do you want to uninstall %s?"
 msgstr "是否要卸载 %s？"
@@ -520,7 +520,7 @@ msgstr "您确定要卸载吗？"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr "备份已下载的文件(ISO)"
+msgstr "备份已下载的文件 (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -554,7 +554,7 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"要从 Live CD 启动，您需要将 CD 放在光驱中并重启计算机。如果您的计算机无法从 "
+"要从 LiveCD 启动，您需要将 CD 放在光驱中并重启计算机。如果您的计算机无法从 "
 "CD 启动，最后一个选项应该在大多数情况下可用。"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
@@ -669,16 +669,16 @@ msgstr "%s 卸载/修复程序"
 
 #: src/wubi/frontends/win32/fix_page.py:67
 msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
-msgstr "\r\n\r\n提醒：Yinst 发现您上次的安装已损坏,但是Ylmf OS安装设备文件root.disk仍然存在，建议你首先尝试<修复> !"
+msgstr "\r\n\r\n提醒：Yinst 发现您上次的安装已损坏，可能无法启动，但是 Ylmf OS 安装设备文件 root.disk 仍然存在，建议您首先尝试<修复> !"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "You Sure ?"
-msgstr "你确定要继续卸载吗?"
+msgstr "您确定要继续卸载吗?"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "Yinst will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them"
-msgstr "Yinst 卸载程序将删除以下目录,如果这些目录包含对你有用的信息,可按下<取消>. 然后备份它们"
+msgstr "Yinst 卸载程序将删除以下目录，请确认该目录下没有重要数据。"
 
 #: src/wubi/backends/common/backend.py:159
 msgid "Recovering the installation directories"

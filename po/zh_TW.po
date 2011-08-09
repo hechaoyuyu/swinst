@@ -322,7 +322,7 @@ msgstr "不要下載，使用本地檔案"
 
 #: src/wubi/frontends/win32/accessibility_page.py:140
 msgid "In Livecd, you can try and decide whether to install Ylmf OS. Please select a partition,and the rest of the space must be greater than 1G"
-msgstr "在Livecd中，您可以試用和決定是否安裝Ylmf OS，請選擇一個NTFS分區，剩於空間必須大於1G"
+msgstr "在 Livecd 中，您可以試用和決定是否安裝 Ylmf OS，請選擇一個 NTFS 分區，剩於空間必須大於 1G"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
@@ -532,7 +532,7 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"要啟動此 Live CD，你需要把此光碟留在光碟機並重新開機。如果您的電腦不能用此 "
+"要啟動此 Live CD，您需要把此光碟留在光碟機並重新開機。如果您的電腦不能用此 "
 "CD 開機，最後一個選項應該可以幫助您。"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
@@ -648,16 +648,16 @@ msgstr "%s 解除/修復程式"
 
 #: src/wubi/frontends/win32/fix_page.py:67
 msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
-msgstr "\r\n\r\n提醒：Yinst 發現您上次的安裝已損壞,但是Ylmf OS安裝設備文件root.disk仍然存在, 建議你首先嘗試<修復> !"
+msgstr "\r\n\r\n提醒：Yinst 發現您上次的安裝已損壞，可能導致無法啟動，但是 Ylmf OS 安裝設備文件 root.disk 仍然存在, 建議您首先嘗試<修復> !"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "You Sure ?"
-msgstr "你確定要繼續卸載 ?"
+msgstr "您確定要繼續卸載 ?"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "Yinst will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them"
-msgstr "Yinst 卸載程序將刪除以下目錄,如果這些目錄包含對你有用的信息,可按下<取消>. 然後備份它們."
+msgstr "Yinst 卸載程序將刪除以下目錄，請確保該目錄下沒有重要數據。"
 
 #: src/wubi/backends/common/backend.py:159
 msgid "Recovering the installation directories"
