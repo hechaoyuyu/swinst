@@ -70,4 +70,4 @@ d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
 d-i installation/quickly-mode $(instmod)
 
 ## no password login
-autologin $(loginauto)
+d-i autologin $(loginauto)
