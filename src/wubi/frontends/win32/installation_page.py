@@ -307,7 +307,7 @@ class InstallationPage(Page):
                 None)
         self.chk_bt_instmod_label = ui.Label(
             self.main,
-            self.h * 3 + 11, self.w + 58, 60, 12,
+            self.h * 3 + 11, self.w + 57, 60, 16,
              _("Fast Install"))
         
         self.chk_bt_instmod.set_check(True)
@@ -318,7 +318,7 @@ class InstallationPage(Page):
                                        None)
         self.chk_bt_autologin_label = ui.Label(
             self.main,
-            self.h * 12 + 17, self.w + 58, 60, 12,
+            self.h * 12 + 17, self.w + 57, 60, 16,
               _("Auto Login"))
         self.chk_bt_autologin.set_check(True)
 
