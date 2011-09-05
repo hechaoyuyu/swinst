@@ -130,7 +130,6 @@ class Wubi(object):
         elif self.info.run_task == "cd_boot":
             self.run_cd_boot()
         elif self.info.run_task == "uninstall":
-            log.info("run uninstaller directly")
             self.run_uninstaller()
         elif self.info.run_task == "show_info":
             self.show_info()
@@ -152,10 +151,6 @@ class Wubi(object):
         self.frontend = self.get_frontend()
         log.info("fixboot -- self.info.arch = %s " % self.info.arch)
         log.info("fixboot -- self.info.distro = %s" % self.info.distro)
-        if not self.info.distro:
-            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386'))
-            log.info("self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')) = %s " % self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386')))
-        log.info("self.info.distros_dict.get(('Ylmf OS'.lower(), 'amd64')) = %s " % self.info.distros_dict.get(('Ylmf OS'.lower(), 'amd64')))
         self.info.target_dir = self.info.pre_install_path
         self.info.icon = os.path.join(self.info.target_dir, self.info.distro.name + '.ico')
         self.info.target_drive = self.info.drives_dict.get(self.info.pre_install_path[:2].lower())
@@ -219,10 +214,16 @@ class Wubi(object):
         log.info("Running the uninstaller/Fixer...")
         if not self.info.previous_target_dir and self.info.pre_install_path:
             self.info.previous_target_dir = self.info.pre_install_path
-        if not os.path.isdir(self.info.previous_target_dir):         
+        elif not self.info.previous_target_dir and self.info.pre_install_path2:
+            self.info.previous_target_dir = self.info.pre_install_path2
+        if not self.info.previous_target_dir and not os.path.isdir(self.info.previous_target_dir):
                 log.error("No previous target dir found, exiting")
                 return
         uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
+        if not self.info.distro:
+            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386'))
+        if self.info.previous_distro_name is None:
+            self.info.previous_distro_name = "Ylmf OS"
         if os.path.isfile(uninstallfile) and not self.info.needfix:
             if self.backend.run_previous_uninstaller(): # 存在uninstall.exe,则程序在此叉开,转去执行该程序
                 return
