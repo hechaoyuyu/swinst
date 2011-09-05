@@ -130,6 +130,7 @@ class Wubi(object):
         elif self.info.run_task == "cd_boot":
             self.run_cd_boot()
         elif self.info.run_task == "uninstall":
+            log.info("run uninstaller directly")
             self.run_uninstaller()
         elif self.info.run_task == "show_info":
             self.show_info()
@@ -186,7 +187,7 @@ class Wubi(object):
                 or (self.info.pre_install_path2 and self.info.pre_install_path2):
             log.info("found previous install path, running the uninstaller/fixer...")
             self.info.uninstall_before_install = True
-            self.run_uninstall()
+            self.run_uninstaller()
             self.backend.fetch_basic_info()
             #if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
         if (self.info.pre_install_path and os.path.isdir(self.info.pre_install_path))\
@@ -211,7 +212,7 @@ class Wubi(object):
         if self.info.run_task == "reboot":
             self.reboot()
 
-    def run_uninstall(self):
+    def run_uninstaller(self):
         '''
         Runs the uninstaller interface
         '''
@@ -222,7 +223,7 @@ class Wubi(object):
                 log.error("No previous target dir found, exiting")
                 return
         uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
-        if os.path.isfile(uninstallfile):
+        if os.path.isfile(uninstallfile) and not self.info.needfix:
             if self.backend.run_previous_uninstaller(): # 存在uninstall.exe,则程序在此叉开,转去执行该程序
                 return
         self.frontend = self.get_frontend()
