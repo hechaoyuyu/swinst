@@ -150,6 +150,7 @@ class AccessibilityPage(Page):
         #shorter list
         self.language2lang_country = {
             _("Chinese (CN)"): "zh_CN",
+            _("Chinese (TW)"): "zh_TW",
             _("English (US)"): "en_US",
             }
         self.lang_country2language = dict([(v,k) for k,v in self.language2lang_country.items()])
