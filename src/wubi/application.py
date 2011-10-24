@@ -179,14 +179,14 @@ class Wubi(object):
         if (self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir))\
                 or (self.info.pre_install_path2 and self.info.pre_install_path2):'''
         if (self.info.pre_install_path and os.path.isdir(self.info.pre_install_path))\
-                or (self.info.pre_install_path2 and self.info.pre_install_path2):
+                or (self.info.pre_install_path2 and os.path.isdir(self.info.pre_install_path2)):
             log.info("found previous install path, running the uninstaller/fixer...")
             self.info.uninstall_before_install = True
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             #if self.info.previous_target_dir and os.path.isdir(self.info.previous_target_dir):
         if (self.info.pre_install_path and os.path.isdir(self.info.pre_install_path))\
-                or (self.info.pre_install_path2 and self.info.pre_install_path2):
+                or (self.info.pre_install_path2 and os.path.isdir(self.info.pre_install_path2)):
                 message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
                 message = message % self.info.previous_target_dir
                 log.error(message)
@@ -216,7 +216,7 @@ class Wubi(object):
             self.info.previous_target_dir = self.info.pre_install_path
         elif not self.info.previous_target_dir and self.info.pre_install_path2:
             self.info.previous_target_dir = self.info.pre_install_path2
-        if not self.info.previous_target_dir and not os.path.isdir(self.info.previous_target_dir):
+        if not self.info.previous_target_dir or not os.path.isdir(self.info.previous_target_dir):
                 log.error("No previous target dir found, exiting")
                 return
         uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
