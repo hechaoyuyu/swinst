@@ -627,21 +627,41 @@ class WindowsBackend(Backend):
         if content[-1] != '\n':
             content += '\n'
         lines = content.split('\n')
+	boot_loader_pos = 0
+	has_timeout = False
+	has_boot_head = False
         is_section = False
         for i,line in enumerate(lines):
-	    if line.strip().lower().startswith("timeout"):
-	    	lines[i] = "timeout = 10"
-	    	continue
             if line.strip().lower() == "[operating systems]":
                 is_section = True
+     		continue
+	    elif line.strip().lower() == "[boot loader]":
+		has_boot_head = True
+		boot_loader_pos = i
+		continue
             elif line.strip().startswith("["):
-                is_section = False
+                is_section  = False
+     		continue
+	    if  line.strip().lower().startswith("timeout"):
+		if not has_boot_head: 
+		    lines.remove(line)
+	        else:
+		    lines[i] = "timeout = 10"
+		    has_timeout = True
+	        continue
             if is_section and line.strip().lower().startswith(old_line):
                 lines[i] = boot_line
                 break
             if is_section and not line.strip():
                 lines.insert(i, boot_line)
                 break
+
+	if not has_boot_head:
+	    lines.insert(0,"[boot loader]")
+	    lines.insert(1,"timeout = 10")
+	elif not has_timeout:
+	    lines.insert(boot_loader_pos+1, "timeout = 10")
+        
         content = '\n'.join(lines)
         write_file(bootini, content)
         run_command(['attrib', '+R', '+S', '+H', bootini])
