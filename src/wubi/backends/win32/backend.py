@@ -629,6 +629,9 @@ class WindowsBackend(Backend):
         lines = content.split('\n')
         is_section = False
         for i,line in enumerate(lines):
+	    if line.strip().lower().startswith("timeout"):
+	    	lines[i] = "timeout = 10"
+	    	continue
             if line.strip().lower() == "[operating systems]":
                 is_section = True
             elif line.strip().startswith("["):
