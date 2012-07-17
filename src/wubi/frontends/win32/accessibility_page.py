@@ -79,7 +79,7 @@ class AccessibilityPage(Page):
         self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name
         self.header.image.set_image(os.path.join(unicode(str(self.info.image_dir), 'mbcs'), unicode(str(bmp_file), 'mbcs')))
-        self.header.title.set_text(_("You are about to install %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version) + " Livecd")
+        self.header.title.set_text(_("You are about to install %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version) + " LiveCD")
         icon_file = "%s.ico" % self.info.distro.name
         self.frontend.set_icon(os.path.join(unicode(str(self.info.image_dir), 'mbcs'), unicode(str(icon_file), 'mbcs')))
         if not self.info.skip_memory_check:
@@ -158,7 +158,7 @@ class AccessibilityPage(Page):
         #The title and image are overridden in on_distro_change, the following are stubs
         self.insert_header(
             "Installing",
-            _("In Livecd,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"),
+            _("In LiveCD,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"),
             "header.bmp")
 
         #navigation

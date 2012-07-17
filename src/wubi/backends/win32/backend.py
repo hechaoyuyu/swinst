@@ -124,13 +124,13 @@ class WindowsBackend(Backend):
         uninstaller_path = join_path(self.info.target_dir, uninstaller_name)
 
         if self.info.run_task == "cd_boot":
-            display_name = self.info.distro.name + _(" Complete experience")
+            display_name = self.info.distro.name + _(" LiveCD")
         elif self.info.flag:
             display_name = self.info.distro.name
         else:
-            display_name = self.info.distro.name + _(" Complete experience")
+            display_name = self.info.distro.name + _(" LiveCD")
 
-        #display_name = self.info.flag and self.info.distro.name or self.info.distro.name + _(" Complete experience")
+        #display_name = self.info.flag and self.info.distro.name or self.info.distro.name + _(" LiveCD")
        
         if os.path.splitext(self.info.original_exe)[-1] == '.exe':
             log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
@@ -614,11 +614,11 @@ class WindowsBackend(Backend):
         run_command(['attrib', '-R', '-S', '-H', bootini])
 
         if self.info.run_task == "cd_boot":
-            boot_line = 'C:\yldrd.mbr = "%s(cd mode)"' % self.info.distro.name
+            boot_line = 'C:\yldrd.mbr = "%s LiveCD"' % self.info.distro.name
         elif self.info.flag:
             boot_line = 'C:\yldr.mbr = "%s"' % self.info.distro.name
         else:
-            boot_line = 'C:\yldrd.mbr = "%s(cd mode)"' % self.info.distro.name
+            boot_line = 'C:\yldrd.mbr = "%s LiveCD"' % self.info.distro.name
 
         old_line = boot_line[:boot_line.index("=")].strip().lower()
 
@@ -775,11 +775,11 @@ class WindowsBackend(Backend):
             log.debug("BCD has already been modified")
             return
         if self.info.run_task == "cd_boot":
-            command = [bcdedit, '/create', '/d', '%s(cd mode)' % self.info.distro.name, '/application', 'bootsector']
+            command = [bcdedit, '/create', '/d', '%s LiveCD' % self.info.distro.name, '/application', 'bootsector']
         elif self.info.flag:
             command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']
         else:
-            command = [bcdedit, '/create', '/d', '%s(cd mode)' % self.info.distro.name, '/application', 'bootsector']
+            command = [bcdedit, '/create', '/d', '%s LiveCD' % self.info.distro.name, '/application', 'bootsector']
         log.debug("run command %s" %command)
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]

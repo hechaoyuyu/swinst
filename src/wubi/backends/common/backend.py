@@ -106,7 +106,7 @@ class Backend(object):
             #设置grub启动菜单(这里面有正常模式、安全模式、体验模式(livecd)等）
             Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
             ]
-        description = _("Installing %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version + " Livecd")
+        description = _("Installing %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version + " LiveCD")
         log.debug("description === %s" % description.encode('utf-8'))
         tasklist = ThreadedTaskList(description=description, tasks=tasks)
         return tasklist
@@ -818,11 +818,11 @@ class Backend(object):
             rootflags = "rootflags=syncio"
 
         if self.info.run_task == "cd_boot":
-            title = "Ylmf OS(livecd mode)"
+            title = "Ylmf OS LiveCD"
         elif self.info.flag:
-            title = "Ylmf OS(hd mode)"
+            title = "Ylmf OS"
         else:
-            title = "Ylmf OS(livecd mode)"
+            title = "Ylmf OS LiveCD"
 
         if self.info.run_task == "cd_boot":
             mode = ""

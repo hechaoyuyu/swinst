@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-04-13 10:48+0800\n"
 "PO-Revision-Date: 2010-12-26 08:46+0000\n"
-"Last-Translator: 英华 <wantinghard@gmail.com>\n"
+"Last-Translator: hzx <zhongxin.huang@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -41,8 +41,8 @@ msgid "Downloading %s"
 msgstr "正在下载 %s"
 
 #: src/wubi/backends/win32/backend.py:116
-msgid " Complete experience"
-msgstr " 完整体验"
+msgid " LiveCD"
+msgstr " LiveCD"
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
@@ -204,7 +204,7 @@ msgid "Checking %s"
 msgstr "正在检查 %s"
 
 msgid "Could not retrieve the required installation files"
-msgstr "无法检索所需的安装文件，请确认 iso 文件和安装工具 yinst 在同一目录下。"
+msgstr "找不到安装文件，请确认 ISO 文件和安装工具 Yinst.exe 在同一目录下。"
 
 msgid "File %s is corrupted"
 msgstr "%s 文件被损坏"
@@ -323,7 +323,7 @@ msgstr "请稍候"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr "不进行下载，使用本地文件"
+msgstr "不进行下载，使用本地文件。"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
@@ -337,7 +337,7 @@ msgid ""
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
 "只有 %sMB 可用磁盘空间。\n"
-"安装最少需要 1024MB 空间。退出"
+"安装最少需要 1024MB 空间，退出。"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -358,17 +358,17 @@ msgid "(%sGB free)"
 msgstr "(%sGB 空闲)"
 
 #: src/wubi/frontends/win32/accessibility_page.py:140
-msgid "In Livecd,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"
-msgstr "在 Livecd 中，您可以试用和决定是否安装 Ylmf OS，请选择一个分区，剩余空间必须大于1G。"
+msgid "In LiveCD,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"
+msgstr "在 LiveCD 中，您可以试用完整的 Ylmf OS，然后再决定是否安装到硬盘。"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select a partition,and the rest of the space must be greater than 5G."
-msgstr "此安装模式不会影响硬盘分区及数据，请选择一个 NTFS 分区，剩余空间必须大于 5G。"
+msgstr "将 Ylmf OS 安装到 Windows 下，就像其它程序一样，不需要一个专用的分区，不会影响硬盘分区和数据。"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "AdvancedInstall"
-msgstr "高级安装"
+msgid "Install LiveCD"
+msgstr "安装 LiveCD"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -406,10 +406,10 @@ msgid "Language:"
 msgstr "语言："
 
 msgid "Chinese (CN)"
-msgstr "简体中文"
+msgstr "中文(简体)"
 
 msgid "Chinese (TW)"
-msgstr "繁体中文"
+msgstr "中文(繁体)"
 
 msgid "English (US)"
 msgstr "英文"
@@ -669,11 +669,11 @@ msgstr "%s 卸载/修复程序"
 
 #: src/wubi/frontends/win32/fix_page.py:67
 msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
-msgstr "\r\n\r\n提醒：Yinst 发现您上次的安装已损坏，可能无法启动，但是 Ylmf OS 安装设备文件 root.disk 仍然存在，建议您首先尝试<修复> !"
+msgstr "\r\n\r\n提醒：Yinst 发现您上次的安装已损坏，可能无法启动，但是 Ylmf OS 安装设备文件 root.disk 仍然存在，建议您首先尝试 <修复> !"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "You Sure ?"
-msgstr "您确定要继续卸载吗?"
+msgstr "您确定要继续卸载吗？"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "Yinst will remove below directroys, if them contain your\
@@ -686,4 +686,4 @@ msgstr "正在恢复安装目录"
 
 #: src/wubi/backends/common/backend.py:189
 msgid "Fixing %(distro)s-%(version)s"
-msgstr "正在修复 %(distro)s-%(version)s"
+msgstr "正在修复 %(distro)s %(version)s"

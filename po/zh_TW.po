@@ -321,8 +321,8 @@ msgid "Do not download, use a local file"
 msgstr "不要下載，使用本地檔案"
 
 #: src/wubi/frontends/win32/accessibility_page.py:140
-msgid "In Livecd, you can try and decide whether to install Ylmf OS. Please select a partition,and the rest of the space must be greater than 1G"
-msgstr "在 Livecd 中，您可以試用和決定是否安裝 Ylmf OS，請選擇一個 NTFS 分區，剩於空間必須大於 1G"
+msgid "In LiveCD, you can try and decide whether to install Ylmf OS. Please select a partition,and the rest of the space must be greater than 1G"
+msgstr "在 LiveCD 中，您可以試用完整的 Ylmf OS，然後再決定是否安裝到硬盤。"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format

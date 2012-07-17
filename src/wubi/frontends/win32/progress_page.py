@@ -42,7 +42,7 @@ class ProgressPage(Page):
                 "%s-header.bmp" % distro_name)
         else:
             self.insert_header(
-                _("Installing %(distro)s-%(version)s") % dict(distro=distro_name, version=self.info.version + " Livecd"),
+                _("Installing %(distro)s-%(version)s") % dict(distro=distro_name, version=self.info.version + " LiveCD"),
                 _("Please wait"),
                 "%s-header.bmp" % distro_name)
                 
