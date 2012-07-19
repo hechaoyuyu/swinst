@@ -43,7 +43,7 @@ class InstallationFinishPage(Page):
         self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("You need to reboot to complete the installation"))
         self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, _("Reboot now"))
         self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, _("I want to manually reboot later"))
-        self.main.reboot_now.set_check(True)
+        self.main.reboot_later.set_check(True)
 
     def on_finish(self):
         if self.main.reboot_now.is_checked():

@@ -321,7 +321,7 @@ class InstallationPage(Page):
             self.main,
             self.h * 12 + 17, self.w + 57, 60, 16,
               _("Auto Login"))
-        self.chk_bt_autologin.set_check(True)
+        self.chk_bt_autologin.set_check(False)
 
 
         #提示信息
