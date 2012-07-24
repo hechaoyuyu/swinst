@@ -4,14 +4,14 @@ default 0
 timeout 0
 fallback 1
 
-title find /ylmfos/disks/boot/grub/menu.lst
-	find --set-root --ignore-floppies /ylmfos/disks/boot/grub/menu.lst
-	configfile /ylmfos/disks/boot/grub/menu.lst
+title find /startos/disks/boot/grub/menu.lst
+	find --set-root --ignore-floppies /startos/disks/boot/grub/menu.lst
+	configfile /startos/disks/boot/grub/menu.lst
 
-title find /ylmfos/install/boot/grub/menu.lst
+title find /startos/install/boot/grub/menu.lst
 	fallback 2
-	find --set-root --ignore-floppies /ylmfos/install/boot/grub/menu.lst
-	configfile /ylmfos/install/boot/grub/menu.lst
+	find --set-root --ignore-floppies /startos/install/boot/grub/menu.lst
+	configfile /startos/install/boot/grub/menu.lst
 
 title find /menu.lst
 	fallback 3

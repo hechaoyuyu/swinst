@@ -8,8 +8,8 @@
 d-i netcfg/choose_interface select auto
 d-i netcfg/dhcp_failed note
 d-i netcfg/dhcp_options select Do not configure the network at this time
-d-i netcfg/get_hostname string ylmfos
-d-i netcfg/get_domain string ylmf-domain
+d-i netcfg/get_hostname string startos
+d-i netcfg/get_domain string startos-domain
 d-i netcfg/wireless_essid string essid
 d-i netcfg/wireless_wep string
 

@@ -140,7 +140,7 @@ class WindowsBackend(Backend):
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayName', display_name)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayIcon', self.info.icon)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayVersion', self.info.version_revision)
-        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'Publisher', "www.ylmf.org")
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'Publisher', "www.startos.org")
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'URLInfoAbout', self.info.distro.website)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'HelpLink', self.info.distro.support)
 

@@ -221,9 +221,9 @@ class Wubi(object):
                 return
         uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
         if not self.info.distro:
-            self.info.distro = self.info.distros_dict.get(('Ylmf OS'.lower(), 'i386'))
+            self.info.distro = self.info.distros_dict.get(('StartOS'.lower(), 'i386'))
         if self.info.previous_distro_name is None:
-            self.info.previous_distro_name = "Ylmf OS"
+            self.info.previous_distro_name = "StartOS"
         if os.path.isfile(uninstallfile) and not self.info.needfix:
             if self.backend.run_previous_uninstaller(): # 存在uninstall.exe,则程序在此叉开,转去执行该程序
                 return

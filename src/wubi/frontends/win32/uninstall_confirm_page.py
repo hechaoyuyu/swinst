@@ -37,23 +37,23 @@ class UninstallConfirmPage(Page):
         self.insert_header(
             msg,
             "",
-            "Ylmf OS-header.bmp")#% self.info.previous_distro_name[0:7])
+            "StartOS-header.bmp")#% self.info.previous_distro_name[0:7])
 
         #navigation
         self.insert_navigation(_("Uninstall"), _("Cancel"), default=2)
         self.navigation.button2.on_click = self.on_cancel
         self.navigation.button1.on_click = self.on_continue
 
-        msg = _("Yinst will remove below directroys, if them contain your\
+        msg = _("Uninstaller will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them")
 
         msg = msg + "\r\n\r\n" + self.info.previous_target_dir
         if self.info.pre_install_path and os.path.isdir(self.info.pre_install_path)\
             and self.info.previous_target_dir.lower() != self.info.pre_install_path.lower():
-                msg = msg + "\r\n" + self.info.pre_install_path # 这里确定要不要增加X:\ylmfos-loop
+                msg = msg + "\r\n" + self.info.pre_install_path # 这里确定要不要增加X:\startos-loop
         if self.info.pre_install_path2 and os.path.isdir(self.info.pre_install_path2)\
             and self.info.previous_target_dir.lower() != self.info.pre_install_path2.lower():
-                msg = msg + "\r\n" + self.info.pre_install_path2 # 这里确定要不要增加X:\ylmfos-livecd
+                msg = msg + "\r\n" + self.info.pre_install_path2 # 这里确定要不要增加X:\startos-livecd
         
         #Main control container
         self.insert_main()

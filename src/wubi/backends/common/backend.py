@@ -100,7 +100,7 @@ class Backend(object):
             #Task(self.create_preseed, description=_("Creating a preseed file")),
             #要安装，先卸载（避免用户误操作）
             Task(self.undo_bootloader, _("Remove bootloader entry")),
-            #添加linux引导项（重要：把引导程序中的wubi改为ylmf），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
+            #添加linux引导项（重要：把引导程序中的wubi改为startos），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
             #中添加了linux的启动选项，并没有重写硬盘中的mbr。
             Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             #设置grub启动菜单(这里面有正常模式、安全模式、体验模式(livecd)等）
@@ -134,7 +134,7 @@ class Backend(object):
             Task(self.create_preseed, description=_("Creating a preseed file")),
             #要安装，先卸载（避免用户误操作）
             Task(self.undo_bootloader, _("Remove bootloader entry")),
-            #添加linux引导项（重要：把引导程序中的wubi改为ylmf），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
+            #添加linux引导项（重要：把引导程序中的wubi改为startos），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
             #中添加了linux的启动选项，并没有重写硬盘中的mbr。
             Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             #设置grub启动菜单(这里面有正常模式、安全模式、体验模式(livecd)等）
@@ -166,7 +166,7 @@ class Backend(object):
             Task(self.extract_kernel, description=_("Extracting the kernel")),
             #要安装，先卸载 删除系统分区yldr,yldr.mbr
             Task(self.undo_bootloader, _("Remove bootloader entry")),
-            #添加linux引导项（重要：把引导程序中的wubi改为ylmf），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
+            #添加linux引导项（重要：把引导程序中的wubi改为startos），从这里可以看出：通过硬盘安装方式只是在win系统的bootloader
             Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             #设置grub启动菜单(这里面有正常模式、安全模式、体验模式(livecd)等）
             Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
@@ -274,7 +274,7 @@ class Backend(object):
         else:
             self.info.needfix -= 1 # 注册表项检查成功
         if not self.info.previous_distro_name:
-            self.info.previous_distro_name = 'Ylmf OS'                
+            self.info.previous_distro_name = 'StartOS'                
         self.check_boot_entry() #检查登录项
        
     def check_boot_entry(self):
@@ -312,14 +312,14 @@ class Backend(object):
             return False
         bootcontent = bootfile.read()
         bootfile.close()
-        if bootcontent.lower().find("c:\\yldr.mbr = \"ylmf os\"") != -1:
+        if bootcontent.lower().find("c:\\yldr.mbr = \"StartOS\"") != -1:
             return True
         return False
 
 
     def check_pre_install_files(self):
         '''
-        check some files in directory ylmfos-loop, judge them if unbroken or not
+        check some files in directory startos-loop, judge them if unbroken or not
         '''
         self.info.installationiso = None
         self.info.swap_size_mb = 256
@@ -353,7 +353,7 @@ class Backend(object):
 
     def check_pre_install_path(self):
         '''
-        check a Win32 machine if exists a directory named "ylmfos-loop",
+        check a Win32 machine if exists a directory named "startos-loop",
         if exists, then refix the boot, else ignore
         '''
         self.info.pre_install_path  = None
@@ -362,14 +362,14 @@ class Backend(object):
             log.info("no effective drive found")
             return False# 如果没检测到有效的驱动器盘符
         for d in self.info.drives:
-            yinst_path = os.path.join(d.path[:2].lower(), "\\ylmfos-loop") #join不在盘符后添加\
-            yinst_path2 = os.path.join(d.path[:2].lower(), "\\ylmfos-livecd")
-            if yinst_path2 and os.path.isdir(yinst_path2):
-                self.info.pre_install_path2 = yinst_path2
-                log.info("Previous yinst path 2 : %s " % str(self.info.pre_install_path2))
-            if yinst_path and os.path.isdir(yinst_path):
-                self.info.pre_install_path = yinst_path
-                log.info("Previous yinst path 1 : %s " % str(self.info.pre_install_path))
+            setup_path = os.path.join(d.path[:2].lower(), "\\startos-loop") #join不在盘符后添加\
+            setup_path2 = os.path.join(d.path[:2].lower(), "\\startos-livecd")
+            if setup_path2 and os.path.isdir(setup_path2):
+                self.info.pre_install_path2 = setup_path2
+                log.info("Previous setup path 2 : %s " % str(self.info.pre_install_path2))
+            if setup_path and os.path.isdir(setup_path):
+                self.info.pre_install_path = setup_path
+                log.info("Previous setup path 1 : %s " % str(self.info.pre_install_path))
                 return True
         return False
     # ----------------------------------------
@@ -818,11 +818,11 @@ class Backend(object):
             rootflags = "rootflags=syncio"
 
         if self.info.run_task == "cd_boot":
-            title = "Ylmf OS LiveCD"
+            title = "StartOS LiveCD"
         elif self.info.flag:
-            title = "Ylmf OS"
+            title = "StartOS"
         else:
-            title = "Ylmf OS LiveCD"
+            title = "StartOS LiveCD"
 
         if self.info.run_task == "cd_boot":
             mode = ""
@@ -832,7 +832,7 @@ class Backend(object):
             mode = ""
 
         dic = dict(
-            title1 = "Completing the Ylmf OS installation.",
+            title1 = "Completing the StartOS installation.",
             title2 = "For more installation boot options, press `ESC' now...",
             normal_mode_title = title,
 

@@ -577,7 +577,7 @@ msgid "Fix"
 msgstr ""
 
 #: src/wubi/frontends/win32/fix_page.py:67
-msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
+msgid "\r\n\r\nNote: Uninstaller found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
 msgstr ""
 
 #: src/wubi/frontends/win32/fix_page.py:36
@@ -601,7 +601,7 @@ msgid "You Sure ?"
 msgstr ""
 
 #: src/wubi/frontends/win32/confirm_page.py:47
-msgid "Yinst will remove below directroys, if them contain your\
+msgid "Uninstaller will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them"
 msgstr ""
 

@@ -47,7 +47,7 @@ class FixPage(Page):
         self.insert_header(
             msg,
             "",
-            "Ylmf OS-header.bmp")#% self.info.previous_distro_name[0:7])
+            "StartOS-header.bmp")#% self.info.previous_distro_name[0:7])
             
         #navigation
         if self.info.needfix != 0:# and self.info.registry:
@@ -76,7 +76,7 @@ class FixPage(Page):
             40, 40, self.main.width - 80, 30 + FIXLABEL_HEIGHT,# x,y, width, height
             "")
         if self.info.needfix:
-            msg = msg + _("\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !")
+            msg = msg + _("\r\n\r\nNote: Uninstaller found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !")
         self.uninstall_label.set_text(msg)
 
         self.backup_iso = ui.CheckButton(

@@ -1,6 +1,6 @@
 export SHELL = sh
-PACKAGE = yinst
-ICON = data/images/Yinst.ico
+PACKAGE = setup
+ICON = data/images/setup.ico
 REVISION = $(shell bzr revno)
 VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 COPYRIGHTYEAR = 2009
@@ -12,12 +12,12 @@ all: build
 build: wubi
 
 wubi: wubi-pre-build
-	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/yinst src/main.py data build/bin build/version.py build/winboot build/translations
-	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/yinst
-	mv build/application.exe build/yinst.exe
+	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/setup src/main.py data build/bin build/version.py build/winboot build/translations
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/setup
+	mv build/application.exe build/setup.exe
 
 wubi-pre-build: check_wine pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
-	rm -rf build/yinst
+	rm -rf build/setup
 	rm -rf build/bin
 	cp -a blobs build/bin
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
@@ -74,10 +74,10 @@ grubutil: src/grubutil/grubinst/*
 7z: src/7z/C/*.c
 	cp -rf src/7z build
 
-runbin: yinst
+runbin: setup
 	rm -rf build/test
 	mkdir build/test
-	cd build/test; ../../tools/wine ../yinst.exe --test
+	cd build/test; ../../tools/wine ../setup.exe --test
 
 check_wine: tools/check_wine
 	tools/check_wine
@@ -93,5 +93,5 @@ clean:
 	rm -rf build/*
 	find ./ -type f -iname "*.py[co]" -exec rm -f {} \;
 
-.PHONY: all build test yinst wubi-pre-build runpy runbin ckeck_wine unittest
+.PHONY: all build test setup wubi-pre-build runpy runbin ckeck_wine unittest
 	7z translations version.py pylauncher grubutil

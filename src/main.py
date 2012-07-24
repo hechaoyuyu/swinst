@@ -34,8 +34,8 @@ from wubi.application import Wubi
 try:
     from version import application_name, version, revision
 except:
-    application_name = "yinst"
-    version = "4.0"
+    application_name = "setup"
+    version = "5.0"
     revision = "0"
 application = Wubi(application_name, version, revision, root_dir)
 application.run()

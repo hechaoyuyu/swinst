@@ -158,7 +158,7 @@ class AccessibilityPage(Page):
         #The title and image are overridden in on_distro_change, the following are stubs
         self.insert_header(
             "Installing",
-            _("In LiveCD,you can try and decide whether to install Ylmf OS.Please select a partition,and the rest of the space must be greater than 1G"),
+            _("In LiveCD,you can try and decide whether to install StartOS.Please select a partition,and the rest of the space must be greater than 1G"),
             "header.bmp")
 
         #navigation

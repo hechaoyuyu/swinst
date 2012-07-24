@@ -61,8 +61,8 @@ class Page(ui.Page):
             self,
             0, 0 , self.width, hbh+2)
 
-        if bmp_file != "Ylmf OS-header.bmp":
-            bmp_file = "Ylmf OS-header.bmp"
+        if bmp_file != "StartOS-header.bmp":
+            bmp_file = "StartOS-header.bmp"
         if bmp_file:
             self.header.image = ui.Bitmap(
                 self.header,

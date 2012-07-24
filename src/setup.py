@@ -4,7 +4,7 @@ __date__ ="$2011-8-8 15:41:41$"
 from setuptools import setup,find_packages
 
 setup (
-  name = 'yinst',
+  name = 'setup',
   version = '0.1',
   packages = find_packages(),
 

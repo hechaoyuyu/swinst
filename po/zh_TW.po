@@ -321,8 +321,8 @@ msgid "Do not download, use a local file"
 msgstr "不要下載，使用本地檔案"
 
 #: src/wubi/frontends/win32/accessibility_page.py:140
-msgid "In LiveCD, you can try and decide whether to install Ylmf OS. Please select a partition,and the rest of the space must be greater than 1G"
-msgstr "在 LiveCD 中，您可以試用完整的 Ylmf OS，然後再決定是否安裝到硬盤。"
+msgid "In LiveCD, you can try and decide whether to install StartOS. Please select a partition,and the rest of the space must be greater than 1G"
+msgstr "在 LiveCD 中，您可以試用完整的 StartOS，然後再決定是否安裝到硬盤。"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
@@ -647,17 +647,17 @@ msgid "%s Uninstaller/Fixer"
 msgstr "%s 解除/修復程式"
 
 #: src/wubi/frontends/win32/fix_page.py:67
-msgid "\r\n\r\nNote: Yinst found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
-msgstr "\r\n\r\n提醒：Yinst 發現您上次的安裝已損壞，可能導致無法啟動，但是 Ylmf OS 安裝設備文件 root.disk 仍然存在, 建議您首先嘗試<修復> !"
+msgid "\r\n\r\nNote: Installer found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !"
+msgstr "\r\n\r\n提醒：安裝程式發現您上次的安裝已損壞，可能導致無法起動，但是 StartOS 安裝設備文件 root.disk 仍然存在, 建議您首先嘗試<修復> !"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "You Sure ?"
 msgstr "您確定要繼續卸載 ?"
 
 #: src/wubi/frontends/win32/confirm_page.py:47
-msgid "Yinst will remove below directroys, if them contain your\
+msgid "Uninstaller will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them"
-msgstr "Yinst 卸載程序將刪除以下目錄，請確保該目錄下沒有重要數據。"
+msgstr "卸載程序將刪除以下目錄，請確保該目錄下沒有重要數據。"
 
 #: src/wubi/backends/common/backend.py:159
 msgid "Recovering the installation directories"

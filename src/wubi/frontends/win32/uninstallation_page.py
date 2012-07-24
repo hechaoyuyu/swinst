@@ -39,7 +39,7 @@ class UninstallationPage(Page):
         self.insert_header(
             msg,
             "",
-            "Ylmf OS-header.bmp")#% self.info.previous_distro_name[0:7])
+            "StartOS-header.bmp")#% self.info.previous_distro_name[0:7])
 
         #navigation
         self.insert_navigation(_("Uninstall"), _("Cancel"), default=2)
