@@ -238,7 +238,7 @@ class Backend(object):
             self.info.language, self.info.encoding = self.get_language_encoding()
         #获取系统环境变量
         self.info.environment_variables = os.environ
-        #获取CPU架构类型:i386 or amd64,判断的标准是计算指针类型的字节大小，4为i386,8为amd64
+        #获取CPU架构类型:i686 or amd64,判断的标准是计算指针类型的字节大小，4为i686,8为amd64
         self.info.arch = self.get_arch()
         if self.info.force_i686:
             log.debug("Forcing 32 bit arch")

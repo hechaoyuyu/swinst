@@ -184,9 +184,9 @@ class Distro(object):
         Parses the file within the ISO
         that contains metadata on the iso
         e.g. .disk/info in Ubuntu
-        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106)
-        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106.1)
-        Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
+        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i686 (20090106)
+        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i686 (20090106.1)
+        Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i686 (20090106.2)
         '''
         log.debug("parsing info from str=%s" % info)
         if not info:

@@ -76,7 +76,7 @@ class FixPage(Page):
             40, 40, self.main.width - 80, 30 + FIXLABEL_HEIGHT,# x,y, width, height
             "")
         if self.info.needfix:
-            msg = msg + _("\r\n\r\nNote: Uninstaller found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !")
+            msg = msg + _("\r\n\r\nNote: Installer found that your previous installation was broken, but the loop device is still exists, and advises you to <fix> first !")
         self.uninstall_label.set_text(msg)
 
         self.backup_iso = ui.CheckButton(

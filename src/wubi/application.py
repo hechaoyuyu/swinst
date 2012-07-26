@@ -221,7 +221,7 @@ class Wubi(object):
                 return
         uninstallfile = os.path.join(self.info.previous_target_dir, 'uninstall.exe')
         if not self.info.distro:
-            self.info.distro = self.info.distros_dict.get(('StartOS'.lower(), 'i386'))
+            self.info.distro = self.info.distros_dict.get(('StartOS'.lower(), 'i686'))
         if self.info.previous_distro_name is None:
             self.info.previous_distro_name = "StartOS"
         if os.path.isfile(uninstallfile) and not self.info.needfix:

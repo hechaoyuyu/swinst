@@ -851,6 +851,6 @@ class WindowsBackend(Backend):
         if cpuid.check_64bit():
             arch = "amd64"
         else:
-            arch = "i386"
+            arch = "i686"
         log.debug("arch=%s" % arch)
         return arch
