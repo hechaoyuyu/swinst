@@ -371,7 +371,7 @@ class InstallationPage(Page):
         self.info.distro = self.info.distros_dict.get((distro_name.lower(), self.info.arch))
 
         if not self.info.distro and self.info.arch == 'amd64':
-            self.info.distro = self.info.distros_dict.get((distro_name.lower(), 'i386'))
+            self.info.distro = self.info.distros_dict.get((distro_name.lower(), 'i686'))
             
         self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name

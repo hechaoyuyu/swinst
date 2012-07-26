@@ -507,7 +507,7 @@ msgstr "正在完成 %s 設定魔法師"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr "您需要重新開機以完成安裝程序"
+msgstr "您需要重新開機以完成安裝程式"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
@@ -657,7 +657,7 @@ msgstr "您確定要繼續卸載 ?"
 #: src/wubi/frontends/win32/confirm_page.py:47
 msgid "Uninstaller will remove below directroys, if them contain your\
         usefull things ,please click <cancel> and backup them"
-msgstr "卸載程序將刪除以下目錄，請確保該目錄下沒有重要數據。"
+msgstr "卸載程式將刪除以下目錄，請確保該目錄下沒有重要數據。"
 
 #: src/wubi/backends/common/backend.py:159
 msgid "Recovering the installation directories"

@@ -240,10 +240,10 @@ class Backend(object):
         self.info.environment_variables = os.environ
         #获取CPU架构类型:i386 or amd64,判断的标准是计算指针类型的字节大小，4为i386,8为amd64
         self.info.arch = self.get_arch()
-        if self.info.force_i386:
+        if self.info.force_i686:
             log.debug("Forcing 32 bit arch")
-            self.info.arch = "i386"
-        self.info.check_arch = (self.info.arch == "i386")
+            self.info.arch = "i686"
+        self.info.check_arch = (self.info.arch == "i686")
         self.info.distro = None
         #读取isolist.ini配置文件
         self.info.distros = self.get_distros()
@@ -434,7 +434,7 @@ class Backend(object):
     def get_arch(self):
         #detects python/os arch not processor arch
         #overridden by platform specific backends
-        arch = struct.calcsize('P') == 8 and "amd64" or "i386"
+        arch = struct.calcsize('P') == 8 and "amd64" or "i686"
         log.debug("arch=%s" % arch)
         return arch
 

@@ -32,7 +32,7 @@ log = logging.getLogger('Distro')
 \w  匹配任何字母数字字符；它相当于类 [a-zA-Z0-9_]。
 \W  匹配任何非字母数字字符；它相当于类 [^a-zA-Z0-9_]。
 '''
-disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\S\s]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
+disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\S\s]+)\" - (?P<subversion>[\D]+) (?P<arch>i686|amd64) \((?P<build>[\d.]+)\)'''
 disk_info_re = re.compile(disk_info_re)
 
 class Distro(object):
