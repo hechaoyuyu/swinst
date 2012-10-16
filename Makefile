@@ -14,7 +14,7 @@ build: wubi
 wubi: wubi-pre-build
 	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/setup src/main.py data build/bin build/version.py build/winboot build/translations
 	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/setup
-	mv build/application.exe build/setup.exe
+	mv build/application.exe build/swin.exe
 
 wubi-pre-build: check_wine pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/setup
@@ -77,7 +77,7 @@ grubutil: src/grubutil/grubinst/*
 runbin: setup
 	rm -rf build/test
 	mkdir build/test
-	cd build/test; ../../tools/wine ../setup.exe --test
+	cd build/test; ../../tools/wine ../swin.exe --test
 
 check_wine: tools/check_wine
 	tools/check_wine

@@ -204,7 +204,7 @@ msgid "Checking %s"
 msgstr "正在检查 %s"
 
 msgid "Could not retrieve the required installation files"
-msgstr "找不到安装文件，请确认 ISO 文件和安装工具 setup.exe 在同一目录下。"
+msgstr "找不到安装文件，请确认 StartOS 的 iso 文件和安装工具 swin.exe 在同一目录下。"
 
 msgid "File %s is corrupted"
 msgstr "%s 文件被损坏"
