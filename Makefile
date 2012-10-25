@@ -1,6 +1,6 @@
 export SHELL = sh
-PACKAGE = setup
-ICON = data/images/setup.ico
+PACKAGE = swin
+ICON = data/images/swin.ico
 REVISION = $(shell bzr revno)
 VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 COPYRIGHTYEAR = 2009

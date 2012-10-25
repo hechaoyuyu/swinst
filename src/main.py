@@ -34,7 +34,7 @@ from wubi.application import Wubi
 try:
     from version import application_name, version, revision
 except:
-    application_name = "setup"
+    application_name = "swin"
     version = "5.0"
     revision = "0"
 application = Wubi(application_name, version, revision, root_dir)
