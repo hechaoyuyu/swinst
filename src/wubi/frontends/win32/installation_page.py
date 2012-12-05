@@ -311,15 +311,19 @@ class InstallationPage(Page):
             self.h * 3 + 11, self.w + 57, 60, 16,
              _("Fast Install"))
         
-        self.chk_bt_instmod.set_check(True)
+        self.chk_bt_instmod.set_check(False)
+	self.chk_bt_instmod.hide()
+	self.chk_bt_instmod_label.hide()
         
         # 自动登录
         self.chk_bt_autologin = ui.CheckButton(self.main,
-                                       self.h * 12, self.w + 58, 12, 12,# x,y,width,height
+                                        # self.h * 12, self.w + 58, 12, 12,# x,y,width,height
+					self.h * 3 - 6, self.w + 58, 12, 12,
                                        None)
         self.chk_bt_autologin_label = ui.Label(
             self.main,
-            self.h * 12 + 17, self.w + 57, 60, 16,
+            # self.h * 12 + 17, self.w + 57, 60, 16,
+	    self.h * 3 + 11, self.w + 57, 60, 16,
               _("Auto Login"))
         self.chk_bt_autologin.set_check(False)
 
