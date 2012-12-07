@@ -331,7 +331,8 @@ class InstallationPage(Page):
         #提示信息
         self.about_label = ui.Label(
             self.main,
-            self.h*4 + self.w + 44, self.main.height - 17, self.main.width - 80, 16,
+            #self.h*4 + self.w + 44, self.main.height - 17, self.main.width - 80, 16,
+            self.h * 12, self.w + 58, self.main.width - 80, 16,
             "")
         self.about_label.set_text_color(255, 0, 0)
         self.about_label.set_text(_("Note: Please remember your user name and password"))
