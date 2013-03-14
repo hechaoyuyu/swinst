@@ -638,7 +638,7 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s 是一个由雨林木风开发的基于 Linux 的自由操作系统，它带有网页浏览器、生"
+"%(distro)s 是一个由东莞瓦力开发的基于 Linux 的自由操作系统，它带有网页浏览器、生"
 "产软件、即时消息等许多软件。"
 
 #: src/wubi/frontends/win32/frontend.py:51

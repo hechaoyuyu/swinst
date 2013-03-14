@@ -34,7 +34,7 @@ translations: po/*.po
 	done
 
 version.py:
-	$(shell echo 'version = "5.0"' > build/version.py)
+	$(shell echo 'version = "6.0"' > build/version.py)
 	$(shell echo 'revision = 0' >> build/version.py)
 	$(shell echo 'application_name = "$(PACKAGE)"' >> build/version.py)
 
