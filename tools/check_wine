@@ -9,8 +9,8 @@ pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
 pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
 
 #Compiled modules
-pycrypto_url="http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=pycrypto-2.0.1.win32-py2.3.zip"
-pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
+pycrypto_url="http://non-us.download.sjsoft.com/opensource/non-us/pycrypto-2.0.1.win32-py2.2.zip"
+pycrypto_md5="f341aa6b4c9b2788ed9ed42d46a378f7"
 
 #2.3 modules (not needed in python 2.4+)
 ctypes_url="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
