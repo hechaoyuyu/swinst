@@ -171,9 +171,9 @@ class Distro(object):
         if self.name and name != self.name:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
-        if self.version and not (version == self.version or version.startswith(self.version + '.')):
-            log.debug('wrong version: %s != %s' % (version, self.version))
-            return False
+        #if self.version and not (version == self.version or version.startswith(self.version + '.')):
+        #    log.debug('wrong version: %s != %s' % (version, self.version))
+        #    return False
         if check_arch and self.arch and arch != self.arch:
             log.debug('wrong arch: %s != %s' % (arch, self.arch))
             return False
